@@ -453,6 +453,7 @@ function getPageTitle(pathname) {
         "/stores/receipts": "Store Material Receipts",
         "/assets/register": "Asset Register",
         "/assets/allocations": "Asset Allocations",
+        "/assets/sales": "Asset Sales & Disposals",
         "/assets/depreciation": "Asset Depreciation",
     };
     return titles[pathname] || "TechMicra ERP";

@@ -35,6 +35,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('warehouse-transfers', WarehouseTransferController::class);
     Route::apiResource('warehouse-receipts', WarehouseReceiptController::class);
 
+    // Assets Module
+    Route::apiResource('asset-masters', \App\Http\Controllers\AssetMasterController::class);
+    Route::apiResource('asset-additions', \App\Http\Controllers\AssetAdditionController::class);
+    Route::apiResource('asset-allocations', \App\Http\Controllers\AssetAllocationController::class);
+    Route::apiResource('asset-sales', \App\Http\Controllers\AssetSaleController::class);
+    Route::apiResource('asset-depreciations', \App\Http\Controllers\AssetDepreciationController::class);
+
     // Quality
     Route::apiResource('incoming-quality-controls', \App\Http\Controllers\IncomingQualityControlController::class);
     Route::apiResource('material-transfer-slips', \App\Http\Controllers\MaterialTransferSlipController::class);

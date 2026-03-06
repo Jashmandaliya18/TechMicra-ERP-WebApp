@@ -72,6 +72,7 @@ import WarehouseReceipts from "../pages/modules/WarehouseReceipts";
 // Assets
 import AssetRegister from "../pages/modules/AssetRegister";
 import AssetAllocations from "../pages/modules/AssetAllocations";
+import AssetSales from "../pages/modules/AssetSales";
 import AssetDepreciation from "../pages/modules/AssetDepreciation";
 
 function AppRoutes() {
@@ -152,6 +153,7 @@ function AppRoutes() {
                     {/* Assets */}
                     <Route path="/assets/register" element={<AssetRegister />} />
                     <Route path="/assets/allocations" element={<AssetAllocations />} />
+                    <Route path="/assets/sales" element={<AssetSales />} />
                     <Route path="/assets/depreciation" element={<AssetDepreciation />} />
                 </Route>
             </Route>
