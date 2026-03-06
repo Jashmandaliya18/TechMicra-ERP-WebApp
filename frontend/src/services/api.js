@@ -1,16 +1,16 @@
-import axios from "axios";
+import axios from 'axios';
 
 const api = axios.create({
-    baseURL: "http://localhost:8000/api",
+    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8000/api',
     headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
     },
 });
 
 // Attach auth token to every request
 api.interceptors.request.use((config) => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     }
@@ -33,7 +33,7 @@ api.interceptors.response.use(
     }
 );
 
-// Sales
+// Sales Services
 export const getCustomers = () => api.get("/customers");
 export const createCustomer = (data) => api.post("/customers", data);
 export const updateCustomer = (id, data) => api.put(`/customers/${id}`, data);
@@ -74,4 +74,14 @@ export const getVoucherReceipts = () => api.get("/voucher-receipts");
 export const createVoucherReceipt = (data) => api.post("/voucher-receipts", data);
 export const updateVoucherReceipt = (id, data) => api.put(`/voucher-receipts/${id}`, data);
 export const deleteVoucherReceipt = (id) => api.delete(`/voucher-receipts/${id}`);
+
+// Purchase & Common Services
+export const purchaseService = {
+    getAll: (resource) => api.get(`/${resource}`),
+    getById: (resource, id) => api.get(`/${resource}/${id}`),
+    create: (resource, data) => api.post(`/${resource}`, data),
+    update: (resource, id, data) => api.put(`/${resource}/${id}`, data),
+    delete: (resource, id) => api.delete(`/${resource}/${id}`),
+};
+
 export default api;

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('purchase_order_id')->constrained('purchase_orders')->cascadeOnDelete();
             $table->date('expected_date');
-            $table->enum('follow_up_status', ['Pending', 'On-Time', 'Delayed'])->default('Pending');
+            $table->string('followup_status')->default('Pending');
             $table->text('remarks')->nullable();
             $table->timestamps();
         });

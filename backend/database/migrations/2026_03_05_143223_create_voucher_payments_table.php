@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('voucher_payments', function (Blueprint $table) {
             $table->id();
             $table->string('voucher_no')->unique();
-            $table->foreignId('vendor_id')->constrained('vendors');
-            $table->foreignId('purchase_billbook_id')->nullable()->constrained('purchase_billbooks');
-            $table->decimal('amount_paid', 15, 2);
-            $table->string('payment_mode'); // Bank Transfer, Crypto, Cash
-            $table->decimal('tds_percent', 5, 2)->default(0);
-            $table->text('remarks')->nullable();
+            $table->string('vendor');
+            $table->foreignId('vendor_id')->nullable()->constrained('vendors');
+            $table->foreignId('billbook_id')->constrained('purchase_billbooks');
+            $table->date('payment_date')->nullable();
+            $table->string('bank_account')->nullable();
+            $table->decimal('amount', 15, 2);
             $table->timestamps();
         });
     }

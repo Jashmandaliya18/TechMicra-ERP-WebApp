@@ -15,11 +15,22 @@ import ProductMaster from "../pages/modules/ProductMaster";
 import DispatchAdvicePage from "../pages/modules/DispatchAdvice";
 import VoucherReceipts from "../pages/modules/Vouchers";
 
-// Purchase
-import MaterialIndents from "../pages/modules/MaterialIndents";
-import PurchaseOrders from "../pages/modules/PurchaseOrders";
-import GoodsReceiptNotes from "../pages/modules/GoodsReceiptNotes";
-import PurchaseBillbooks from "../pages/modules/PurchaseBillbooks";
+// Purchase Module
+import PurchaseLayout from "../components/PurchaseLayout";
+import PurchaseDashboard from "../pages/purchase/PurchaseDashboard";
+import MaterialIndentsPage from "../pages/purchase/MaterialIndents";
+import MaterialIndentForm from "../pages/purchase/MaterialIndentForm";
+import MaterialIndentView from "../pages/purchase/MaterialIndentView";
+import PurchaseOrdersPage from "../pages/purchase/PurchaseOrders";
+import PurchaseOrderForm from "../pages/purchase/PurchaseOrderForm";
+import PurchaseOrderView from "../pages/purchase/PurchaseOrderView";
+import PurchaseSchedulePage from "../pages/purchase/PurchaseSchedule";
+import GoodsReceiptNotesPage from "../pages/purchase/GoodsReceiptNotes";
+import GRNForm from "../pages/purchase/GRNForm";
+import IQCPage from "../pages/purchase/IQC";
+import MaterialReceiptsPage from "../pages/purchase/MaterialReceipts";
+import PurchaseBillbookPage from "../pages/purchase/PurchaseBillbook";
+import VoucherPaymentsPage from "../pages/purchase/VoucherPayments";
 
 // Production
 import ProductionBom from "../pages/modules/ProductionBom";
@@ -95,11 +106,23 @@ function AppRoutes() {
                     <Route path="/sales/invoices" element={<Invoices />} />
                     <Route path="/sales/receipts" element={<VoucherReceipts />} />
 
-                    {/* Purchase */}
-                    <Route path="/purchase/indents" element={<MaterialIndents />} />
-                    <Route path="/purchase/orders" element={<PurchaseOrders />} />
-                    <Route path="/purchase/grn" element={<GoodsReceiptNotes />} />
-                    <Route path="/purchase/billbooks" element={<PurchaseBillbooks />} />
+                    {/* Purchase Module */}
+                    <Route path="/purchase/dashboard" element={<PurchaseDashboard />} />
+                    <Route path="/purchase/material-indents" element={<MaterialIndentsPage />} />
+                    <Route path="/purchase/material-indents/new" element={<MaterialIndentForm />} />
+                    <Route path="/purchase/material-indents/:id" element={<MaterialIndentView />} />
+                    <Route path="/purchase/material-indents/edit/:id" element={<MaterialIndentForm />} />
+                    <Route path="/purchase/orders" element={<PurchaseOrdersPage />} />
+                    <Route path="/purchase/orders/new" element={<PurchaseOrderForm />} />
+                    <Route path="/purchase/orders/:id" element={<PurchaseOrderView />} />
+                    <Route path="/purchase/orders/edit/:id" element={<PurchaseOrderForm />} />
+                    <Route path="/purchase/schedules" element={<PurchaseSchedulePage />} />
+                    <Route path="/purchase/grn" element={<GoodsReceiptNotesPage />} />
+                    <Route path="/purchase/grn/new" element={<GRNForm />} />
+                    <Route path="/purchase/iqc" element={<IQCPage />} />
+                    <Route path="/purchase/receipts" element={<MaterialReceiptsPage />} />
+                    <Route path="/purchase/billbook" element={<PurchaseBillbookPage />} />
+                    <Route path="/purchase/payments" element={<VoucherPaymentsPage />} />
 
                     {/* Production */}
                     <Route path="/production/bom" element={<ProductionBom />} />

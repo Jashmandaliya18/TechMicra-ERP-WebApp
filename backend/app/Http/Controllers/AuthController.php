@@ -18,7 +18,18 @@ class AuthController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
+        // Debug logging (Remove before production)
+        \Log::info('Login attempt', [
+            'email' => $request->email,
+            'user_found' => (bool)$user,
+            'email_match' => $user ? ($user->email === $request->email) : false,
+            'password_len' => strlen($request->password),
+            'password_sha1' => sha1($request->password),
+            'expected_sha1' => sha1('admin123'),
+        ]);
+
         if (! $user || ! Hash::check($request->password, $user->password)) {
+            \Log::warning('Login failed for: ' . $request->email);
             throw ValidationException::withMessages([
                 'email' => ['The provided credentials do not match our records.'],
             ]);

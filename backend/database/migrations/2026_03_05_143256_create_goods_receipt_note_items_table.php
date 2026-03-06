@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('goods_receipt_note_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('goods_receipt_note_id')->constrained('goods_receipt_notes')->cascadeOnDelete();
-            $table->foreignId('product_id')->constrained('products'); // Item 
+            $table->string('item_name');
+            $table->foreignId('product_id')->nullable()->constrained('products');
             $table->integer('received_qty');
             $table->timestamps();
         });

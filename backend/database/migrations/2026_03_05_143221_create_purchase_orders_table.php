@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('purchase_orders', function (Blueprint $table) {
             $table->id();
             $table->string('po_no')->unique();
-            $table->foreignId('vendor_id')->constrained('vendors');
+            $table->string('vendor_name');
+            $table->foreignId('vendor_id')->nullable()->constrained('vendors');
             $table->date('po_date');
             $table->date('valid_until')->nullable();
-            $table->enum('status', ['Pending', 'Approved', 'Closed'])->default('Pending');
+            $table->string('status')->default('Pending');
+            $table->decimal('total_amount', 15, 2)->default(0);
             $table->timestamps();
         });
     }

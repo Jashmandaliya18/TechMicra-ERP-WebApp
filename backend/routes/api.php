@@ -28,6 +28,16 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/profile', [AuthController::class, 'profile']);
     Route::get('/user', fn(Request $r) => $r->user());
 
+    // Purchase Management Module
+    Route::apiResource('material-indents', \App\Http\Controllers\MaterialIndentController::class);
+    Route::apiResource('purchase-orders', \App\Http\Controllers\PurchaseOrderController::class);
+    Route::apiResource('purchase-schedules', \App\Http\Controllers\PurchaseScheduleController::class);
+    Route::apiResource('goods-receipt-notes', \App\Http\Controllers\GoodsReceiptNoteController::class);
+    Route::apiResource('iqc-checks', \App\Http\Controllers\IqcCheckController::class);
+    Route::apiResource('material-receipts', \App\Http\Controllers\MaterialReceiptController::class);
+    Route::apiResource('purchase-billbooks', \App\Http\Controllers\PurchaseBillbookController::class);
+    Route::apiResource('voucher-payments', \App\Http\Controllers\VoucherPaymentController::class);
+
     // Stores Module
     Route::apiResource('warehouses', WarehouseController::class);
     Route::apiResource('warehouse-openings', WarehouseOpeningController::class);
@@ -36,7 +46,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('warehouse-receipts', WarehouseReceiptController::class);
 
     // Quality
-    Route::apiResource('incoming-quality-controls', \App\Http\Controllers\IncomingQualityControlController::class);
     Route::apiResource('material-transfer-slips', \App\Http\Controllers\MaterialTransferSlipController::class);
     Route::apiResource('process-quality-controls', \App\Http\Controllers\ProcessQualityControlController::class);
     Route::apiResource('pre-dispatch-inspections', \App\Http\Controllers\PreDispatchInspectionController::class);

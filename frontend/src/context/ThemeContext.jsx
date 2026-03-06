@@ -17,11 +17,11 @@ const getDesignTokens = (mode) => ({
                 divider: "rgba(0,0,0,0.08)",
             }
             : {
-                primary: { main: "#90caf9", light: "#e3f2fd", dark: "#42a5f5" },
+                primary: { main: "#64b5f6", light: "#90caf9", dark: "#2196f3" },
                 secondary: { main: "#b388ff" },
-                background: { default: "#0a1929", paper: "#0f2744" },
-                text: { primary: "#e3e8ef", secondary: "#94a3b8" },
-                divider: "rgba(255,255,255,0.08)",
+                background: { default: "#070e17", paper: "#0b1523" },
+                text: { primary: "#f1f5f9", secondary: "#94a3b8" },
+                divider: "rgba(255,255,255,0.06)",
             }),
     },
     typography: {
@@ -31,14 +31,14 @@ const getDesignTokens = (mode) => ({
         h6: { fontWeight: 600 },
         subtitle1: { fontWeight: 500 },
     },
-    shape: { borderRadius: 12 },
+    shape: { borderRadius: 16 },
     components: {
         MuiButton: {
             styleOverrides: {
                 root: {
                     textTransform: "none",
                     fontWeight: 600,
-                    borderRadius: 8,
+                    borderRadius: 10,
                 },
             },
         },
@@ -46,6 +46,9 @@ const getDesignTokens = (mode) => ({
             styleOverrides: {
                 root: {
                     backgroundImage: "none",
+                    backdropFilter: mode === "dark" ? "blur(12px)" : "none",
+                    backgroundColor: mode === "dark" ? "rgba(11, 21, 35, 0.8)" : "#fff",
+                    border: mode === "dark" ? "1px solid rgba(255, 255, 255, 0.05)" : "none",
                 },
             },
         },
