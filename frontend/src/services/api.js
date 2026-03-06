@@ -93,4 +93,23 @@ export const hrService = {
     delete: (resource, id) => api.delete(`/${resource}/${id}`),
 };
 
+// Assets Module
+export const getAssetMasters = () => api.get("/asset-masters");
+export const createAssetMaster = (data) => api.post("/asset-masters", data);
+export const updateAssetMaster = (id, data) => api.put(`/asset-masters/${id}`, data);
+export const deleteAssetMaster = (id) => api.delete(`/asset-masters/${id}`);
+
+export const getAssetAdditions = () => api.get("/asset-additions");
+export const createAssetAddition = (data) => api.post("/asset-additions", data);
+
+export const getAssetAllocations = () => api.get("/asset-allocations");
+export const createAssetAllocation = (data) => api.post("/asset-allocations", data);
+export const updateAssetAllocation = (id, data) => api.put(`/asset-allocations/${id}`, data);
+
+export const getAssetSales = () => api.get("/asset-sales");
+export const createAssetSale = (data) => api.post("/asset-sales", data);
+
+export const getAssetDepreciations = () => api.get("/asset-depreciations");
+export const createAssetDepreciation = (data) => api.post("/asset-depreciations", data);
+
 export default api;
