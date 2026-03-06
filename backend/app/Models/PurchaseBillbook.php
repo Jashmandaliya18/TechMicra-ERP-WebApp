@@ -7,12 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class PurchaseBillbook extends Model
 {
     protected $fillable = [
-        'bill_no',
-        'vendor_id',
-        'invoice_ref',
+        'bill_id',
+        'purchase_order_id',
+        'vendor_invoice_no',
         'invoice_date',
-        'goods_receipt_note_id',
-        'amount',
+        'taxable_value',
         'gst_amount',
         'total_amount',
     ];

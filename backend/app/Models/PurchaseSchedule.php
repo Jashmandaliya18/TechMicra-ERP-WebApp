@@ -9,7 +9,7 @@ class PurchaseSchedule extends Model
     protected $fillable = [
         'purchase_order_id',
         'expected_date',
-        'follow_up_status',
+        'followup_status',
         'remarks',
     ];
 

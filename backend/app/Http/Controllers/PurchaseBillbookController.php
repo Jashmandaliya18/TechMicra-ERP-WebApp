@@ -12,34 +12,35 @@ class PurchaseBillbookController extends Controller
      */
     public function index()
     {
-        return PurchaseBillbook::with(['vendor', 'goodsReceiptNote', 'items.product'])->latest()->get();
+        return PurchaseBillbook::with(['purchaseOrder'])->latest()->get();
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'bill_no' => 'required|string|unique:purchase_billbooks',
-            'vendor_id' => 'required|exists:vendors,id',
-            'invoice_ref' => 'nullable|string',
+            'purchase_order_id' => 'required|exists:purchase_orders,id',
+            'vendor_invoice_no' => 'nullable|string',
             'invoice_date' => 'nullable|date',
-            'goods_receipt_note_id' => 'nullable|exists:goods_receipt_notes,id',
-            'amount' => 'required|numeric|min:0',
+            'taxable_value' => 'required|numeric|min:0',
             'gst_amount' => 'required|numeric|min:0',
             'total_amount' => 'required|numeric|min:0',
-            'items' => 'required|array',
-            'items.*.product_id' => 'required|exists:products,id',
-            'items.*.quantity' => 'required|integer|min:1',
-            'items.*.rate' => 'required|numeric|min:0',
-            'items.*.amount' => 'required|numeric|min:0',
         ]);
 
-        $bill = PurchaseBillbook::create($request->only(['bill_no', 'vendor_id', 'invoice_ref', 'invoice_date', 'goods_receipt_note_id', 'amount', 'gst_amount', 'total_amount']));
+        // Auto-generate Bill ID
+        $count = PurchaseBillbook::whereDate('created_at', now())->count() + 1;
+        $billId = 'BILL-' . now()->format('Ymd') . '-' . str_pad($count, 3, '0', STR_PAD_LEFT);
 
-        foreach ($validated['items'] as $item) {
-            $bill->items()->create($item);
-        }
+        $bill = PurchaseBillbook::create([
+            'bill_id' => $billId,
+            'purchase_order_id' => $validated['purchase_order_id'],
+            'vendor_invoice_no' => $validated['vendor_invoice_no'],
+            'invoice_date' => $validated['invoice_date'],
+            'taxable_value' => $validated['taxable_value'],
+            'gst_amount' => $validated['gst_amount'],
+            'total_amount' => $validated['total_amount'],
+        ]);
 
-        return response()->json($bill->load(['vendor', 'goodsReceiptNote', 'items.product']), 201);
+        return response()->json($bill, 201);
     }
 
     public function show(PurchaseBillbook $purchaseBillbook)

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import DataTable from '../../components/DataTable';
 import { purchaseService } from '../../services/api';
-import { Box, CircularProgress, Alert } from '@mui/material';
+import { Box, CircularProgress, Alert, Chip } from '@mui/material';
 
 const MaterialIndents = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     const columns = [
         { field: 'indent_no', label: 'Indent No' },
@@ -16,19 +18,15 @@ const MaterialIndents = () => {
             field: 'priority',
             label: 'Priority',
             render: (val) => (
-                <Box component="span" sx={{
-                    color: val === 'High' ? 'error.main' : val === 'Medium' ? 'warning.main' : 'success.main',
-                    fontWeight: 'bold'
-                }}>
-                    {val}
-                </Box>
+                <Chip
+                    label={val}
+                    size="small"
+                    color={val === 'High' ? 'error' : val === 'Medium' ? 'warning' : 'success'}
+                    sx={{ fontWeight: 'bold' }}
+                />
             )
         },
-        {
-            field: 'items',
-            label: 'Items Qty',
-            render: (items) => items ? items.reduce((acc, item) => acc + item.requested_qty, 0) : 0
-        }
+        { field: 'status', label: 'Status' }
     ];
 
     useEffect(() => {
@@ -57,10 +55,10 @@ const MaterialIndents = () => {
                 title="Material Indents"
                 columns={columns}
                 data={data}
-                onAdd={() => console.log('Add')}
-                onEdit={(row) => console.log('Edit', row)}
+                onAdd={() => navigate('/purchase/material-indents/new')}
+                onView={(row) => navigate(`/purchase/material-indents/${row.id}`)}
+                onEdit={(row) => navigate(`/purchase/material-indents/edit/${row.id}`)}
                 onDelete={(row) => console.log('Delete', row)}
-                onView={(row) => console.log('View', row)}
             />
         </Box>
     );

@@ -8,14 +8,12 @@ class VoucherPayment extends Model
 {
     protected $fillable = [
         'voucher_no',
+        'vendor',
         'vendor_id',
-        'purchase_billbook_id',
+        'billbook_id',
         'payment_date',
         'bank_account',
-        'amount_paid',
-        'payment_mode',
-        'tds_percent',
-        'remarks',
+        'amount',
     ];
 
     public function vendor()

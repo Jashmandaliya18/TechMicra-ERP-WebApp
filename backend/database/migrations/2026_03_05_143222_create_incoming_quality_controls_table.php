@@ -11,14 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('incoming_quality_controls', function (Blueprint $table) {
+        Schema::create('iqc_checks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('goods_receipt_note_id')->constrained('goods_receipt_notes');
-            $table->foreignId('product_id')->constrained('products');
+            $table->string('item_name');
+            $table->foreignId('product_id')->nullable()->constrained('products');
             $table->integer('total_qty');
             $table->integer('sample_size')->default(0);
             $table->integer('accepted_qty')->default(0);
             $table->integer('rejected_qty')->default(0);
+            $table->string('status')->default('Pending');
             $table->timestamps();
         });
     }

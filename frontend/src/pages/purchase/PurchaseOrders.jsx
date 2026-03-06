@@ -1,28 +1,30 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import DataTable from '../../components/DataTable';
 import { purchaseService } from '../../services/api';
-import { Box, CircularProgress, Alert } from '@mui/material';
+import { Box, CircularProgress, Alert, Chip } from '@mui/material';
 
 const PurchaseOrders = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     const columns = [
         { field: 'po_no', label: 'PO No' },
-        { field: 'vendor', label: 'Vendor', render: (v) => v?.name || 'N/A' },
         { field: 'po_date', label: 'PO Date' },
-        { field: 'valid_until', label: 'Valid Until' },
+        { field: 'vendor_name', label: 'Vendor' },
+        { field: 'total_amount', label: 'Total Amount' },
         {
             field: 'status',
             label: 'Status',
             render: (val) => (
-                <Box component="span" sx={{
-                    color: val === 'Closed' ? 'error.main' : val === 'Approved' ? 'success.main' : 'warning.main',
-                    fontWeight: 'bold'
-                }}>
-                    {val}
-                </Box>
+                <Chip
+                    label={val}
+                    size="small"
+                    color={val === 'Pending' ? 'warning' : 'success'}
+                    sx={{ fontWeight: 'bold' }}
+                />
             )
         }
     ];
@@ -53,10 +55,10 @@ const PurchaseOrders = () => {
                 title="Purchase Orders"
                 columns={columns}
                 data={data}
-                onAdd={() => console.log('Add')}
-                onEdit={(row) => console.log('Edit', row)}
+                onAdd={() => navigate('/purchase/orders/new')}
+                onView={(row) => navigate(`/purchase/orders/${row.id}`)}
+                onEdit={(row) => navigate(`/purchase/orders/edit/${row.id}`)}
                 onDelete={(row) => console.log('Delete', row)}
-                onView={(row) => console.log('View', row)}
             />
         </Box>
     );

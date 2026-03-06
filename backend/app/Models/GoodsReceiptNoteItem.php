@@ -8,10 +8,9 @@ class GoodsReceiptNoteItem extends Model
 {
     protected $fillable = [
         'goods_receipt_note_id',
+        'item_name',
         'product_id',
         'received_qty',
-        'accepted_qty',
-        'rejected_qty',
     ];
 
     public function goodsReceiptNote()

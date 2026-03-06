@@ -15,7 +15,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('purchase-orders', \App\Http\Controllers\PurchaseOrderController::class);
     Route::apiResource('purchase-schedules', \App\Http\Controllers\PurchaseScheduleController::class);
     Route::apiResource('goods-receipt-notes', \App\Http\Controllers\GoodsReceiptNoteController::class);
-    Route::apiResource('incoming-quality-controls', \App\Http\Controllers\IncomingQualityControlController::class);
+    Route::apiResource('incoming-quality-controls', \App\Http\Controllers\IqcCheckController::class);
     Route::apiResource('material-receipts', \App\Http\Controllers\MaterialReceiptController::class);
     Route::apiResource('purchase-billbooks', \App\Http\Controllers\PurchaseBillbookController::class);
     Route::apiResource('voucher-payments', \App\Http\Controllers\VoucherPaymentController::class);

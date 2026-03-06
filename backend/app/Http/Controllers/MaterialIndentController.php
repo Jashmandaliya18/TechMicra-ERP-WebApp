@@ -18,29 +18,33 @@ class MaterialIndentController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'indent_no' => 'required|string|unique:material_indents',
             'request_date' => 'required|date',
             'department' => 'required|string',
-            'priority' => 'required|string|in:Low,Medium,High',
+            'priority' => 'required|string',
             'items' => 'required|array',
-            'items.*.product_id' => 'required|exists:products,id',
+            'items.*.item_name' => 'required|string',
             'items.*.requested_qty' => 'required|integer|min:1',
             'items.*.current_stock' => 'nullable|integer',
         ]);
 
+        // Auto-generate Indent No
+        $count = MaterialIndent::whereDate('created_at', now())->count() + 1;
+        $indentNo = 'IND-' . now()->format('Ymd') . '-' . str_pad($count, 3, '0', STR_PAD_LEFT);
+
         $indent = MaterialIndent::create([
-            'indent_no' => $validated['indent_no'],
+            'indent_no' => $indentNo,
             'request_date' => $validated['request_date'],
             'department' => $validated['department'],
             'priority' => $validated['priority'],
-            'requested_by' => auth()->id() ?? 1, // Fallback for now
+            'status' => 'Pending',
+            'requested_by' => auth()->id() ?? 1,
         ]);
 
         foreach ($validated['items'] as $item) {
             $indent->items()->create($item);
         }
 
-        return response()->json($indent->load('items.product'), 201);
+        return response()->json($indent->load('items'), 201);
     }
 
     public function show(MaterialIndent $materialIndent)
@@ -56,7 +60,8 @@ class MaterialIndentController extends Controller
             'priority' => 'sometimes|string|in:Low,Medium,High',
             'items' => 'sometimes|array',
             'items.*.id' => 'sometimes|exists:material_indent_items,id',
-            'items.*.product_id' => 'required_with:items|exists:products,id',
+            'items.*.item_name' => 'required_with:items|string',
+            'items.*.product_id' => 'nullable|exists:products,id',
             'items.*.requested_qty' => 'required_with:items|integer|min:1',
             'items.*.current_stock' => 'nullable|integer',
         ]);

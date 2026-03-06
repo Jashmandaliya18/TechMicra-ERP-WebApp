@@ -31,7 +31,7 @@ const DataTable = ({ title, columns, data, onAdd, onEdit, onDelete, onView }) =>
             <TableContainer>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
-                        <TableRow sx={{ backgroundColor: 'grey.100' }}>
+                        <TableRow>
                             {columns.map((column) => (
                                 <TableCell key={column.field} sx={{ fontWeight: 'bold' }}>
                                     {column.label}

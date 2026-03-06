@@ -8,10 +8,12 @@ class PurchaseOrder extends Model
 {
     protected $fillable = [
         'po_no',
+        'vendor_name',
         'vendor_id',
         'po_date',
         'valid_until',
         'status',
+        'total_amount',
     ];
 
     public function items()

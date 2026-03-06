@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('material_indent_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('material_indent_id')->constrained('material_indents')->cascadeOnDelete();
-            $table->foreignId('product_id')->constrained('products'); // Item Name
+            $table->foreignId('material_indent_id')->constrained()->onDelete('cascade');
+            $table->string('item_name');
             $table->integer('current_stock')->default(0);
             $table->integer('requested_qty');
             $table->timestamps();

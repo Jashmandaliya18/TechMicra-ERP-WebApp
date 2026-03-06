@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import DataTable from '../../components/DataTable';
 import { purchaseService } from '../../services/api';
 import { Box, CircularProgress, Alert } from '@mui/material';
@@ -7,12 +8,12 @@ const GoodsReceiptNotes = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     const columns = [
         { field: 'grn_no', label: 'GRN No' },
-        { field: 'purchase_order', label: 'PO Ref', render: (po) => po?.po_no || 'N/A' },
-        { field: 'vendor_challan_no', label: 'Vendor Challan' },
-        { field: 'gate_entry_date', label: 'Gate Entry Date' },
+        { field: 'gate_entry_date', label: 'Entry Date' },
+        { field: 'vendor_challan_no', label: 'Challan No' },
         { field: 'vehicle_no', label: 'Vehicle No' }
     ];
 
@@ -39,13 +40,13 @@ const GoodsReceiptNotes = () => {
         <Box>
             {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
             <DataTable
-                title="Goods Receipt Notes (GRN)"
+                title="Goods Receipt Notes"
                 columns={columns}
                 data={data}
-                onAdd={() => console.log('Add')}
+                onAdd={() => navigate('/purchase/grn/new')}
+                onView={(row) => console.log('View', row)}
                 onEdit={(row) => console.log('Edit', row)}
                 onDelete={(row) => console.log('Delete', row)}
-                onView={(row) => console.log('View', row)}
             />
         </Box>
     );

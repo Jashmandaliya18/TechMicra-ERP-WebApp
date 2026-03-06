@@ -8,10 +8,12 @@ class PurchaseOrderItem extends Model
 {
     protected $fillable = [
         'purchase_order_id',
+        'item_name',
         'product_id',
         'quantity',
         'rate',
         'expected_delivery_date',
+        'subtotal',
     ];
 
     public function purchaseOrder()

@@ -20,12 +20,12 @@ class RoleAndAdminSeeder extends Seeder
         $superAdminRole = Role::firstOrCreate(['name' => 'Super Admin']);
         $userRole = Role::firstOrCreate(['name' => 'User']);
 
-        // Create Super Admin User
-        $superAdmin = User::firstOrCreate(
+        // Create/Update Super Admin User
+        $superAdmin = User::updateOrCreate(
             ['email' => 'admin@techmicra.com'],
             [
                 'name' => 'Super Admin',
-                'password' => Hash::make('admin123'),
+                'password' => Hash::make('admin@123'),
             ]
         );
 

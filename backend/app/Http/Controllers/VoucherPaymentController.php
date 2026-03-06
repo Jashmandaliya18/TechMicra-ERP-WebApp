@@ -12,25 +12,26 @@ class VoucherPaymentController extends Controller
      */
     public function index()
     {
-        return VoucherPayment::with(['vendor', 'purchaseBillbook'])->latest()->get();
+        return VoucherPayment::with(['billbook'])->latest()->get();
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'voucher_no' => 'required|string|unique:voucher_payments',
-            'vendor_id' => 'required|exists:vendors,id',
-            'purchase_billbook_id' => 'nullable|exists:purchase_billbooks,id',
+            'vendor' => 'required|string',
+            'vendor_id' => 'nullable|exists:vendors,id',
+            'billbook_id' => 'required|exists:purchase_billbooks,id',
             'payment_date' => 'required|date',
             'bank_account' => 'nullable|string',
-            'amount_paid' => 'required|numeric|min:0',
-            'payment_mode' => 'required|string',
-            'tds_percent' => 'nullable|numeric|min:0|max:100',
-            'remarks' => 'nullable|string',
+            'amount' => 'required|numeric|min:0',
         ]);
 
-        $payment = VoucherPayment::create($validated);
-        return response()->json($payment->load(['vendor', 'purchaseBillbook']), 201);
+        // Auto-generate Voucher No
+        $count = VoucherPayment::whereDate('created_at', now())->count() + 1;
+        $voucherNo = 'VOU-' . now()->format('Ymd') . '-' . str_pad($count, 3, '0', STR_PAD_LEFT);
+
+        $payment = VoucherPayment::create(array_merge($validated, ['voucher_no' => $voucherNo]));
+        return response()->json($payment->load(['billbook']), 201);
     }
 
     public function show(VoucherPayment $voucherPayment)

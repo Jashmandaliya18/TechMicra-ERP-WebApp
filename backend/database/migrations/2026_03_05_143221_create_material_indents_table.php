@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string('indent_no')->unique();
             $table->date('request_date');
             $table->string('department');
-            $table->enum('priority', ['Low', 'Medium', 'High'])->default('Medium');
-            $table->foreignId('requested_by')->constrained('users');
+            $table->string('priority')->default('Medium');
+            $table->string('status')->default('Pending');
+            $table->foreignId('requested_by')->nullable()->constrained('users');
             $table->timestamps();
         });
     }

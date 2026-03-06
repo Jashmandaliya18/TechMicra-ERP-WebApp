@@ -11,6 +11,7 @@ class MaterialIndent extends Model
         'request_date',
         'department',
         'priority',
+        'status',
         'requested_by',
     ];
 
