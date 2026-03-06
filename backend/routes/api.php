@@ -49,7 +49,9 @@ use App\Http\Controllers\CreditCardStatementController;
 // Public auth routes
 Route::post('/login', [AuthController::class, 'login']);
 
-// Protected routes
+// Removed temporary DB setup route
+
+
 Route::middleware(['auth:sanctum'])->group(function () {
 
     // Auth
