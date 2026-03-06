@@ -7,43 +7,39 @@ use Illuminate\Http\Request;
 
 class PaymentReceiptVoucherController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return response()->json(PaymentReceiptVoucher::latest()->get());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'voucher_type' => 'nullable|string',
+            'date'         => 'required|date',
+            'party_name'   => 'nullable|string',
+            'amount'       => 'nullable|numeric',
+            'mode'         => 'nullable|string',
+            'reference_no' => 'nullable|string',
+            'remarks'      => 'nullable|string',
+        ]);
+        return response()->json(PaymentReceiptVoucher::create($validated), 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(PaymentReceiptVoucher $paymentReceiptVoucher)
     {
-        //
+        return response()->json($paymentReceiptVoucher);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, PaymentReceiptVoucher $paymentReceiptVoucher)
     {
-        //
+        $paymentReceiptVoucher->update($request->all());
+        return response()->json($paymentReceiptVoucher);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(PaymentReceiptVoucher $paymentReceiptVoucher)
     {
-        //
+        $paymentReceiptVoucher->delete();
+        return response()->json(['message' => 'Deleted successfully']);
     }
 }

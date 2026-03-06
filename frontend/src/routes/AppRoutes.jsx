@@ -45,10 +45,12 @@ import CalibrationReports from "../pages/modules/CalibrationReports";
 import ToolRepairs from "../pages/modules/ToolRepairs";
 
 // Finance
-import JournalEntries from "../pages/modules/JournalEntries";
-import Vouchers from "../pages/modules/Vouchers";
-import BankReconciliation from "../pages/modules/BankReconciliation";
-import GstAdjustments from "../pages/modules/GstAdjustments";
+import JournalVoucherPage from "../pages/modules/JournalVoucherPage";
+import PaymentReceiptPage from "../pages/modules/PaymentReceiptPage";
+import ContraVoucherPage from "../pages/modules/ContraVoucherPage";
+import GstJournalPage from "../pages/modules/GstJournalPage";
+import BankRecPage from "../pages/modules/BankRecPage";
+import CreditCardStatementPage from "../pages/modules/CreditCardStatementPage";
 
 // HR
 import Employees from "../pages/modules/Employees";
@@ -121,10 +123,12 @@ function AppRoutes() {
                     <Route path="/maintenance/repairs" element={<ToolRepairs />} />
 
                     {/* Finance */}
-                    <Route path="/finance/journal" element={<JournalEntries />} />
-                    <Route path="/finance/vouchers" element={<Vouchers />} />
-                    <Route path="/finance/bank-rec" element={<BankReconciliation />} />
-                    <Route path="/finance/gst" element={<GstAdjustments />} />
+                    <Route path="/finance/journal" element={<JournalVoucherPage />} />
+                    <Route path="/finance/vouchers" element={<PaymentReceiptPage />} />
+                    <Route path="/finance/contra" element={<ContraVoucherPage />} />
+                    <Route path="/finance/gst" element={<GstJournalPage />} />
+                    <Route path="/finance/bank-rec" element={<BankRecPage />} />
+                    <Route path="/finance/credit-card" element={<CreditCardStatementPage />} />
 
                     {/* HR */}
                     <Route path="/hr/employees" element={<Employees />} />

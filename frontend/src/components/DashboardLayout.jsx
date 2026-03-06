@@ -112,10 +112,12 @@ const navSections = [
                 text: "Finance",
                 icon: <AccountBalance />,
                 children: [
-                    { text: "Journal Entries", path: "/finance/journal" },
-                    { text: "Vouchers", path: "/finance/vouchers" },
+                    { text: "Voucher Journal", path: "/finance/journal" },
+                    { text: "Payment & Receipt", path: "/finance/vouchers" },
+                    { text: "Contra Voucher", path: "/finance/contra" },
+                    { text: "GST Journal", path: "/finance/gst" },
                     { text: "Bank Reconciliation", path: "/finance/bank-rec" },
-                    { text: "GST Adjustments", path: "/finance/gst" },
+                    { text: "Credit Card Statement", path: "/finance/credit-card" },
                 ],
             },
             {

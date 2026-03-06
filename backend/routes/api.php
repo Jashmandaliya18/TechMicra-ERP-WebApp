@@ -17,6 +17,12 @@ use App\Http\Controllers\ToolController;
 use App\Http\Controllers\ToolMaintenanceController;
 use App\Http\Controllers\ToolCalibrationController;
 use App\Http\Controllers\ToolRepairController;
+use App\Http\Controllers\JournalVoucherController;
+use App\Http\Controllers\PaymentReceiptVoucherController;
+use App\Http\Controllers\ContraVoucherController;
+use App\Http\Controllers\GstJournalVoucherController;
+use App\Http\Controllers\BankReconciliationController;
+use App\Http\Controllers\CreditCardStatementController;
 
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -41,6 +47,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('tool-maintenance', ToolMaintenanceController::class);
     Route::apiResource('tool-calibration', ToolCalibrationController::class);
     Route::apiResource('tool-repairs', ToolRepairController::class);
+
+    // Finance Management Module Routes
+    Route::apiResource('journal-vouchers', JournalVoucherController::class);
+    Route::apiResource('payment-receipts', PaymentReceiptVoucherController::class);
+    Route::apiResource('contra-vouchers', ContraVoucherController::class);
+    Route::apiResource('gst-journals', GstJournalVoucherController::class);
+    Route::apiResource('bank-reconciliation', BankReconciliationController::class);
+    Route::apiResource('credit-card-statements', CreditCardStatementController::class);
 });
 
 Route::get('/user', function (Request $request) {
