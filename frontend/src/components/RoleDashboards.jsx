@@ -27,15 +27,20 @@ export const StatCard = ({ title, value, icon, color, trend }) => {
     );
 };
 
-export const SalesDashboard = () => (
-    <Grid container spacing={3}>
-        <Grid item xs={12} sm={6} md={2.4}><StatCard title="New Inquiries" value="0" icon={<Assignment />} color="#1565c0" /></Grid>
-        <Grid item xs={12} sm={6} md={2.4}><StatCard title="Pending Quotations" value="0" icon={<RequestQuote />} color="#7b1fa2" /></Grid>
-        <Grid item xs={12} sm={6} md={2.4}><StatCard title="Orders Confirmed" value="0" icon={<CheckCircle />} color="#2e7d32" /></Grid>
-        <Grid item xs={12} sm={6} md={2.4}><StatCard title="Invoices Generated" value="0" icon={<Receipt />} color="#1565c0" /></Grid>
-        <Grid item xs={12} sm={6} md={2.4}><StatCard title="Overdue Payments" value="₹0" icon={<Warning />} color="#d32f2f" /></Grid>
-    </Grid>
-);
+export const SalesDashboard = ({ stats, formatCurrency }) => {
+    // Fallback if stats are loading or undefined
+    if (!stats) return null;
+
+    return (
+        <Grid container spacing={3}>
+            <Grid item xs={12} sm={6} md={2.4}><StatCard title="New Inquiries" value={stats.newInquiries} icon={<Assignment />} color="#1565c0" /></Grid>
+            <Grid item xs={12} sm={6} md={2.4}><StatCard title="Pending Quotations" value={stats.pendingQuotations} icon={<RequestQuote />} color="#7b1fa2" /></Grid>
+            <Grid item xs={12} sm={6} md={2.4}><StatCard title="Orders Confirmed" value={stats.ordersConfirmed} icon={<CheckCircle />} color="#2e7d32" /></Grid>
+            <Grid item xs={12} sm={6} md={2.4}><StatCard title="Invoices Generated" value={stats.invoicesGenerated} icon={<Receipt />} color="#1565c0" /></Grid>
+            <Grid item xs={12} sm={6} md={2.4}><StatCard title="Overdue Payments" value={formatCurrency ? formatCurrency(stats.overduePayments) : `₹${stats.overduePayments}`} icon={<Warning />} color="#d32f2f" /></Grid>
+        </Grid>
+    );
+};
 
 export const HRDashboard = () => (
     <Grid container spacing={3}>

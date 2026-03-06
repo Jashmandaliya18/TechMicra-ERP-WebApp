@@ -58,6 +58,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/profile', [AuthController::class, 'profile']);
     Route::get('/user', fn(Request $r) => $r->user());
+    
+    // Dashboard Stats
+    Route::get('/dashboard/stats', [App\Http\Controllers\DashboardController::class, 'getStats']);
 
     // =========================================
     // SALES MODULE

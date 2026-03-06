@@ -1,4 +1,5 @@
-import { Box, Typography, Grid, Paper, useTheme, alpha } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Box, Typography, Grid, Paper, useTheme, alpha, CircularProgress } from "@mui/material";
 import {
     ShoppingCart, RequestQuote, Factory, AccountBalance,
     People, LocalShipping, VerifiedUser, Badge,
@@ -7,6 +8,7 @@ import {
 } from "@mui/icons-material";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import api from "../services/api";
 
 import {
     SalesDashboard, HRDashboard, ProductionDashboard,
@@ -35,11 +37,40 @@ export default function Dashboard() {
     const navigate = useNavigate();
     const theme = useTheme();
 
+    const [stats, setStats] = useState(null);
+    const [loadingStats, setLoadingStats] = useState(true);
+
+    useEffect(() => {
+        const fetchStats = async () => {
+            try {
+                const response = await api.get('/dashboard/stats');
+                setStats(response.data);
+            } catch (error) {
+                console.error("Failed to fetch dashboard stats", error);
+                setStats({
+                    totalSales: 0, pendingOrders: 0, lowStockItems: 0, pendingPOs: 0,
+                    runningBatches: 0, dispatchPending: 0, totalEmployees: 0, pendingPayments: 0,
+                    cashFlow: 0, notifications: 0, newInquiries: 0, pendingQuotations: 0,
+                    ordersConfirmed: 0, invoicesGenerated: 0, overduePayments: 0
+                });
+            } finally {
+                setLoadingStats(false);
+            }
+        };
+        fetchStats();
+    }, []);
+
+    const formatCurrency = (amount) => {
+        return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(amount);
+    };
+
     const filteredCards = moduleCards.filter(mod => hasPermission(`${mod.title}.view`));
 
     const renderRoleDashboard = () => {
+        if (loadingStats) return <CircularProgress />;
+
         switch (role) {
-            case "Sales Manager": return <SalesDashboard />;
+            case "Sales Manager": return <SalesDashboard stats={stats} formatCurrency={formatCurrency} />;
             case "HR Manager": return <HRDashboard />;
             case "Production Manager": return <ProductionDashboard />;
             case "Purchase Manager": return <PurchaseDashboard />;
@@ -52,16 +83,16 @@ export default function Dashboard() {
             case "Super Admin": return (
                 <Grid container spacing={3}>
                     {/* Super Admin Widgets based on requirements */}
-                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Total Sales" value="₹0" icon={<TrendingUp />} color="#1565c0" /></Grid>
-                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Pending Orders" value="0" icon={<ShoppingCart />} color="#e65100" /></Grid>
-                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Low Stock Items" value="0" icon={<Warning />} color="#d32f2f" /></Grid>
-                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Pending POs" value="0" icon={<RequestQuote />} color="#7b1fa2" /></Grid>
-                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Running Batches" value="0" icon={<Factory />} color="#e65100" /></Grid>
-                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Dispatch Pending" value="0" icon={<LocalShipping />} color="#00838f" /></Grid>
-                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Total Employees" value="0" icon={<People />} color="#ad1457" /></Grid>
-                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Pending Payments" value="₹0" icon={<AccountBalance />} color="#d32f2f" /></Grid>
-                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Cash Flow" value="₹0" icon={<TrendingUp />} color="#2e7d32" /></Grid>
-                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Notifications" value="0" icon={<Assignment />} color="#1565c0" /></Grid>
+                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Total Sales" value={formatCurrency(stats.totalSales)} icon={<TrendingUp />} color="#1565c0" /></Grid>
+                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Pending Orders" value={stats.pendingOrders} icon={<ShoppingCart />} color="#e65100" /></Grid>
+                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Low Stock Items" value={stats.lowStockItems} icon={<Warning />} color="#d32f2f" /></Grid>
+                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Pending POs" value={stats.pendingPOs} icon={<RequestQuote />} color="#7b1fa2" /></Grid>
+                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Running Batches" value={stats.runningBatches} icon={<Factory />} color="#e65100" /></Grid>
+                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Dispatch Pending" value={stats.dispatchPending} icon={<LocalShipping />} color="#00838f" /></Grid>
+                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Total Employees" value={stats.totalEmployees} icon={<People />} color="#ad1457" /></Grid>
+                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Pending Payments" value={formatCurrency(stats.pendingPayments)} icon={<AccountBalance />} color="#d32f2f" /></Grid>
+                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Cash Flow" value={formatCurrency(stats.cashFlow)} icon={<TrendingUp />} color="#2e7d32" /></Grid>
+                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Notifications" value={stats.notifications} icon={<Assignment />} color="#1565c0" /></Grid>
                 </Grid>
             );
             default: return null;
