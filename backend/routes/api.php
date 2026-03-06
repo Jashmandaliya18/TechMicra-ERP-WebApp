@@ -11,6 +11,11 @@ use App\Http\Controllers\SaleOrderController;
 use App\Http\Controllers\DispatchAdviceController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PaymentReceiptVoucherController;
+use App\Http\Controllers\WarehouseController;
+use App\Http\Controllers\WarehouseOpeningController;
+use App\Http\Controllers\DispatchSrvController;
+use App\Http\Controllers\WarehouseTransferController;
+use App\Http\Controllers\WarehouseReceiptController;
 
 // Public auth routes
 Route::post('/login', [AuthController::class, 'login']);
@@ -22,6 +27,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/profile', [AuthController::class, 'profile']);
     Route::get('/user', fn(Request $r) => $r->user());
+
+    // Stores Module
+    Route::apiResource('warehouses', WarehouseController::class);
+    Route::apiResource('warehouse-openings', WarehouseOpeningController::class);
+    Route::apiResource('dispatch-srvs', DispatchSrvController::class);
+    Route::apiResource('warehouse-transfers', WarehouseTransferController::class);
+    Route::apiResource('warehouse-receipts', WarehouseReceiptController::class);
 
     // Quality
     Route::apiResource('incoming-quality-controls', \App\Http\Controllers\IncomingQualityControlController::class);

@@ -74,5 +74,4 @@ export const getVoucherReceipts = () => api.get("/voucher-receipts");
 export const createVoucherReceipt = (data) => api.post("/voucher-receipts", data);
 export const updateVoucherReceipt = (id, data) => api.put(`/voucher-receipts/${id}`, data);
 export const deleteVoucherReceipt = (id) => api.delete(`/voucher-receipts/${id}`);
-
 export default api;

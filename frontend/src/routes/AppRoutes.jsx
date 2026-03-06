@@ -63,9 +63,11 @@ import ContractorEmployees from "../pages/modules/ContractorEmployees";
 import ContractorSalary from "../pages/modules/ContractorSalary";
 
 // Stores
-import StoresInventory from "../pages/modules/StoresInventory";
-import StoreTransfers from "../pages/modules/StoreTransfers";
-import StoreReceipts from "../pages/modules/StoreReceipts";
+import Warehouses from "../pages/modules/Warehouses";
+import WarehouseOpenings from "../pages/modules/WarehouseOpenings";
+import DispatchSRV from "../pages/modules/DispatchSRV";
+import WarehouseTransfers from "../pages/modules/WarehouseTransfers";
+import WarehouseReceipts from "../pages/modules/WarehouseReceipts";
 
 // Assets
 import AssetRegister from "../pages/modules/AssetRegister";
@@ -141,9 +143,11 @@ function AppRoutes() {
                     <Route path="/contractors/salary" element={<ContractorSalary />} />
 
                     {/* Stores */}
-                    <Route path="/stores/inventory" element={<StoresInventory />} />
-                    <Route path="/stores/transfers" element={<StoreTransfers />} />
-                    <Route path="/stores/receipts" element={<StoreReceipts />} />
+                    <Route path="/stores/warehouses" element={<Warehouses />} />
+                    <Route path="/stores/openings" element={<WarehouseOpenings />} />
+                    <Route path="/stores/dispatch" element={<DispatchSRV />} />
+                    <Route path="/stores/transfers" element={<WarehouseTransfers />} />
+                    <Route path="/stores/receipts" element={<WarehouseReceipts />} />
 
                     {/* Assets */}
                     <Route path="/assets/register" element={<AssetRegister />} />
