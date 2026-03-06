@@ -90,6 +90,7 @@ const navSections = [
                 icon: <VerifiedUser />,
                 children: [
                     { text: "Inspections (IQC)", path: "/quality/inspections" },
+                    { text: "Material Transfer (MTS)", path: "/quality/mts" },
                     { text: "Process QC", path: "/quality/pqc" },
                     { text: "Pre-Dispatch (PDI)", path: "/quality/pdi" },
                     { text: "Rejections", path: "/quality/rejections" },
@@ -426,6 +427,7 @@ function getPageTitle(pathname) {
         "/logistics/challans": "Challan Out",
         "/logistics/freight": "Freight Billbook",
         "/quality/inspections": "Quality Inspections (IQC)",
+        "/quality/mts": "Material Transfer Slips (MTS)",
         "/quality/pqc": "Process Quality Control",
         "/quality/pdi": "Pre-Dispatch Inspection",
         "/quality/rejections": "Rejection & Disposals",

@@ -23,6 +23,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/profile', [AuthController::class, 'profile']);
     Route::get('/user', fn(Request $r) => $r->user());
 
+    // Quality
+    Route::apiResource('incoming-quality-controls', \App\Http\Controllers\IncomingQualityControlController::class);
+    Route::apiResource('material-transfer-slips', \App\Http\Controllers\MaterialTransferSlipController::class);
+    Route::apiResource('process-quality-controls', \App\Http\Controllers\ProcessQualityControlController::class);
+    Route::apiResource('pre-dispatch-inspections', \App\Http\Controllers\PreDispatchInspectionController::class);
+    Route::apiResource('quality-rejection-disposals', \App\Http\Controllers\QualityRejectionDisposalController::class);
+
     // Logistics
     Route::apiResource('transporters', \App\Http\Controllers\TransporterController::class);
     Route::apiResource('logistics-bookings', \App\Http\Controllers\LogisticsBookingController::class);

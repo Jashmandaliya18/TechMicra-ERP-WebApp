@@ -36,6 +36,7 @@ import FreightBillbooks from "../pages/modules/FreightBillbooks";
 
 // Quality
 import QualityInspections from "../pages/modules/QualityInspections";
+import QualityMTS from "../pages/modules/QualityMTS";
 import ProcessQC from "../pages/modules/ProcessQC";
 import PreDispatchInspection from "../pages/modules/PreDispatchInspection";
 import QualityRejections from "../pages/modules/QualityRejections";
@@ -113,6 +114,7 @@ function AppRoutes() {
 
                     {/* Quality */}
                     <Route path="/quality/inspections" element={<QualityInspections />} />
+                    <Route path="/quality/mts" element={<QualityMTS />} />
                     <Route path="/quality/pqc" element={<ProcessQC />} />
                     <Route path="/quality/pdi" element={<PreDispatchInspection />} />
                     <Route path="/quality/rejections" element={<QualityRejections />} />

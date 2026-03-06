@@ -19,6 +19,8 @@ return new class extends Migration
             $table->integer('sample_size')->default(0);
             $table->integer('accepted_qty')->default(0);
             $table->integer('rejected_qty')->default(0);
+            $table->enum('visual_check', ['Pass', 'Fail'])->nullable();
+            $table->string('dimension_check')->nullable();
             $table->timestamps();
         });
     }
