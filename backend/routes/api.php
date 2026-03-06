@@ -13,6 +13,10 @@ use App\Http\Controllers\ChallanController;
 use App\Http\Controllers\ExternalGrnController;
 use App\Http\Controllers\JobBillController;
 use App\Http\Controllers\RouteCardClosureController;
+use App\Http\Controllers\ToolController;
+use App\Http\Controllers\ToolMaintenanceController;
+use App\Http\Controllers\ToolCalibrationController;
+use App\Http\Controllers\ToolRepairController;
 
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -31,6 +35,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('external-grn', ExternalGrnController::class)->only(['index', 'store']);
     Route::apiResource('job-bills', JobBillController::class)->only(['index', 'store']);
     Route::post('routecard-close', [RouteCardClosureController::class, 'store']);
+
+    // Maintenance Management Module Routes
+    Route::apiResource('tools', ToolController::class);
+    Route::apiResource('tool-maintenance', ToolMaintenanceController::class);
+    Route::apiResource('tool-calibration', ToolCalibrationController::class);
+    Route::apiResource('tool-repairs', ToolRepairController::class);
 });
 
 Route::get('/user', function (Request $request) {

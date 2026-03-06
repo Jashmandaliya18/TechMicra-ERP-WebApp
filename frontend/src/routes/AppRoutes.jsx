@@ -40,8 +40,9 @@ import QualityRejections from "../pages/modules/QualityRejections";
 
 // Maintenance
 import ToolMaster from "../pages/modules/ToolMaster";
-import MaintenanceChart from "../pages/modules/MaintenanceChart";
-import CalibrationRecords from "../pages/modules/CalibrationRecords";
+import MaintenanceSchedule from "../pages/modules/MaintenanceSchedule";
+import CalibrationReports from "../pages/modules/CalibrationReports";
+import ToolRepairs from "../pages/modules/ToolRepairs";
 
 // Finance
 import JournalEntries from "../pages/modules/JournalEntries";
@@ -115,8 +116,9 @@ function AppRoutes() {
 
                     {/* Maintenance */}
                     <Route path="/maintenance/tools" element={<ToolMaster />} />
-                    <Route path="/maintenance/chart" element={<MaintenanceChart />} />
-                    <Route path="/maintenance/calibration" element={<CalibrationRecords />} />
+                    <Route path="/maintenance/chart" element={<MaintenanceSchedule />} />
+                    <Route path="/maintenance/calibration" element={<CalibrationReports />} />
+                    <Route path="/maintenance/repairs" element={<ToolRepairs />} />
 
                     {/* Finance */}
                     <Route path="/finance/journal" element={<JournalEntries />} />
