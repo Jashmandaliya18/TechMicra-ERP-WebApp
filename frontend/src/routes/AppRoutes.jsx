@@ -10,6 +10,10 @@ import SalesInquiries from "../pages/modules/SalesInquiries";
 import Quotations from "../pages/modules/Quotations";
 import SaleOrders from "../pages/modules/SaleOrders";
 import Invoices from "../pages/modules/Invoices";
+import CustomerMaster from "../pages/modules/CustomerMaster";
+import ProductMaster from "../pages/modules/ProductMaster";
+import DispatchAdvicePage from "../pages/modules/DeliveryChallans";
+import VoucherReceipts from "../pages/modules/Vouchers";
 
 // Purchase
 import MaterialIndents from "../pages/modules/MaterialIndents";
@@ -78,10 +82,14 @@ function AppRoutes() {
                     <Route path="/" element={<Dashboard />} />
 
                     {/* Sales */}
+                    <Route path="/sales/customers" element={<CustomerMaster />} />
+                    <Route path="/sales/products" element={<ProductMaster />} />
                     <Route path="/sales/inquiries" element={<SalesInquiries />} />
                     <Route path="/sales/quotations" element={<Quotations />} />
                     <Route path="/sales/orders" element={<SaleOrders />} />
+                    <Route path="/sales/dispatch" element={<DispatchAdvicePage />} />
                     <Route path="/sales/invoices" element={<Invoices />} />
+                    <Route path="/sales/receipts" element={<VoucherReceipts />} />
 
                     {/* Purchase */}
                     <Route path="/purchase/indents" element={<MaterialIndents />} />

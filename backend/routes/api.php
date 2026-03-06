@@ -3,14 +3,51 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\InquiryController;
+use App\Http\Controllers\QuotationController;
+use App\Http\Controllers\SaleOrderController;
+use App\Http\Controllers\DispatchAdviceController;
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\PaymentReceiptVoucherController;
 
+// Public auth routes
 Route::post('/login', [AuthController::class, 'login']);
 
+// Protected routes
 Route::middleware(['auth:sanctum'])->group(function () {
+
+    // Auth
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/profile', [AuthController::class, 'profile']);
-});
+    Route::get('/user', fn(Request $r) => $r->user());
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+    // =========================================
+    // SALES MODULE
+    // =========================================
+
+    // Customer Master
+    Route::apiResource('customers', CustomerController::class);
+
+    // Product Master
+    Route::apiResource('products', ProductController::class);
+
+    // Inquiries
+    Route::apiResource('inquiries', InquiryController::class);
+
+    // Quotations
+    Route::apiResource('quotations', QuotationController::class);
+
+    // Sale Orders
+    Route::apiResource('sale-orders', SaleOrderController::class);
+
+    // Dispatch Advice
+    Route::apiResource('dispatch-advice', DispatchAdviceController::class);
+
+    // Invoices
+    Route::apiResource('invoices', InvoiceController::class);
+
+    // Voucher Receipts
+    Route::apiResource('voucher-receipts', PaymentReceiptVoucherController::class);
+});

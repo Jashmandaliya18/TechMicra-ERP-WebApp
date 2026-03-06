@@ -6,5 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class InquiryItem extends Model
 {
-    //
+    protected $fillable = [
+        'inquiry_id', 'product_id', 'quantity', 'target_price',
+    ];
+
+    public function inquiry()
+    {
+        return $this->belongsTo(Inquiry::class);
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

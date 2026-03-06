@@ -39,10 +39,14 @@ const navSections = [
                 text: "Sales",
                 icon: <ShoppingCart />,
                 children: [
+                    { text: "Customer Master", path: "/sales/customers" },
+                    { text: "Product Master", path: "/sales/products" },
                     { text: "Inquiries", path: "/sales/inquiries" },
                     { text: "Quotations", path: "/sales/quotations" },
                     { text: "Sale Orders", path: "/sales/orders" },
+                    { text: "Dispatch Advice", path: "/sales/dispatch" },
                     { text: "Invoices", path: "/sales/invoices" },
+                    { text: "Payment Receipts", path: "/sales/receipts" },
                 ],
             },
             {
@@ -399,10 +403,14 @@ export default function DashboardLayout() {
 function getPageTitle(pathname) {
     const titles = {
         "/": "Dashboard",
+        "/sales/customers": "Customer Master",
+        "/sales/products": "Product Master",
         "/sales/inquiries": "Sales Inquiries",
         "/sales/quotations": "Quotations",
         "/sales/orders": "Sale Orders",
+        "/sales/dispatch": "Dispatch Advice",
         "/sales/invoices": "Invoices",
+        "/sales/receipts": "Payment Receipts",
         "/purchase/indents": "Material Indents",
         "/purchase/orders": "Purchase Orders",
         "/purchase/grn": "Goods Receipt Notes",

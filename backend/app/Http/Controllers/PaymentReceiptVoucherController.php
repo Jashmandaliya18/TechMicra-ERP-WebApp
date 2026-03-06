@@ -7,43 +7,70 @@ use Illuminate\Http\Request;
 
 class PaymentReceiptVoucherController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    private function nextReceiptNo(): string
+    {
+        $prefix = 'RCT-' . now()->format('Ym') . '-';
+        $last = PaymentReceiptVoucher::where('receipt_no', 'like', $prefix . '%')
+            ->orderByDesc('receipt_no')->first();
+        $seq = $last ? ((int) substr($last->receipt_no, -3)) + 1 : 1;
+        return $prefix . str_pad($seq, 3, '0', STR_PAD_LEFT);
+    }
+
     public function index()
     {
-        //
+        return response()->json(
+            PaymentReceiptVoucher::with(['customer', 'invoice'])->latest()->get()
+        );
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'voucher_date' => 'required|date',
+            'customer_id'  => 'required|exists:customers,id',
+            'invoice_id'   => 'nullable|exists:invoices,id',
+            'amount'       => 'required|numeric|min:0',
+            'mode'         => 'required|in:Cheque,NEFT,RTGS,Cash,UPI',
+            'ref_no'       => 'nullable|string|max:100',
+        ]);
+
+        $voucher = PaymentReceiptVoucher::create([
+            'receipt_no'   => $this->nextReceiptNo(),
+            'voucher_date' => $data['voucher_date'],
+            'customer_id'  => $data['customer_id'],
+            'invoice_id'   => $data['invoice_id'] ?? null,
+            'amount'       => $data['amount'],
+            'mode'         => $data['mode'],
+            'ref_no'       => $data['ref_no'] ?? null,
+        ]);
+
+        $voucher->load(['customer', 'invoice']);
+        return response()->json($voucher, 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(PaymentReceiptVoucher $paymentReceiptVoucher)
     {
-        //
+        return response()->json($paymentReceiptVoucher->load(['customer', 'invoice']));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, PaymentReceiptVoucher $paymentReceiptVoucher)
     {
-        //
+        $data = $request->validate([
+            'voucher_date' => 'required|date',
+            'customer_id'  => 'required|exists:customers,id',
+            'invoice_id'   => 'nullable|exists:invoices,id',
+            'amount'       => 'required|numeric|min:0',
+            'mode'         => 'required|in:Cheque,NEFT,RTGS,Cash,UPI',
+            'ref_no'       => 'nullable|string|max:100',
+        ]);
+
+        $paymentReceiptVoucher->update($data);
+        return response()->json($paymentReceiptVoucher->load(['customer', 'invoice']));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(PaymentReceiptVoucher $paymentReceiptVoucher)
     {
-        //
+        $paymentReceiptVoucher->delete();
+        return response()->json(['message' => 'Voucher deleted successfully.']);
     }
 }
