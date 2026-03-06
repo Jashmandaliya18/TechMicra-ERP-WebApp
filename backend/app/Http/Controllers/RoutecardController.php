@@ -2,48 +2,52 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Routecard;
+use App\Models\RouteCard;
 use Illuminate\Http\Request;
 
-class RoutecardController extends Controller
+class RouteCardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return response()->json(RouteCard::all());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'route_card_no' => 'required|string',
+            'batch_no' => 'required|string',
+            'product' => 'required|string',
+            'plan_qty' => 'required|integer',
+            'start_date' => 'required|date',
+            'end_date' => 'nullable|date',
+            'status' => 'required|in:planned,in_progress,completed',
+        ]);
+
+        $routeCard = RouteCard::create($validated);
+        return response()->json($routeCard, 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Routecard $routecard)
+    public function show($id)
     {
-        //
+        return response()->json(RouteCard::findOrFail($id));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Routecard $routecard)
+    public function update(Request $request, $id)
     {
-        //
-    }
+        $routeCard = RouteCard::findOrFail($id);
+        
+        $validated = $request->validate([
+            'route_card_no' => 'sometimes|string',
+            'batch_no' => 'sometimes|string',
+            'product' => 'sometimes|string',
+            'plan_qty' => 'sometimes|integer',
+            'start_date' => 'sometimes|date',
+            'end_date' => 'nullable|date',
+            'status' => 'sometimes|in:planned,in_progress,completed',
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Routecard $routecard)
-    {
-        //
+        $routeCard->update($validated);
+        return response()->json($routeCard);
     }
 }

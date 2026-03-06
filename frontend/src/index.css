@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
 
 *,
 *::before,
@@ -37,7 +38,7 @@ body {
     background: rgba(128, 128, 128, 0.5);
 }
 
-/* Remove default input outlines for a cleaner look */
+/* Remove default link styles */
 a {
     text-decoration: none;
     color: inherit;

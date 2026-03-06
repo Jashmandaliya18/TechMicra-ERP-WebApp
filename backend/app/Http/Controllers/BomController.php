@@ -7,43 +7,49 @@ use Illuminate\Http\Request;
 
 class BomController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return response()->json(Bom::all());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'finished_good' => 'required|string',
+            'process_name' => 'required|string',
+            'machine' => 'required|string',
+            'raw_material_input' => 'required|string',
+            'output_qty' => 'required|integer',
+        ]);
+
+        $bom = Bom::create($validated);
+        return response()->json($bom, 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Bom $bom)
+    public function show($id)
     {
-        //
+        return response()->json(Bom::findOrFail($id));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Bom $bom)
+    public function update(Request $request, $id)
     {
-        //
+        $bom = Bom::findOrFail($id);
+        
+        $validated = $request->validate([
+            'finished_good' => 'sometimes|string',
+            'process_name' => 'sometimes|string',
+            'machine' => 'sometimes|string',
+            'raw_material_input' => 'sometimes|string',
+            'output_qty' => 'sometimes|integer',
+        ]);
+
+        $bom->update($validated);
+        return response()->json($bom);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Bom $bom)
+    public function destroy($id)
     {
-        //
+        Bom::findOrFail($id)->delete();
+        return response()->json(['message' => 'Deleted successfully']);
     }
 }

@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+
+// Sales
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\InquiryController;
@@ -10,12 +12,39 @@ use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\SaleOrderController;
 use App\Http\Controllers\DispatchAdviceController;
 use App\Http\Controllers\InvoiceController;
-use App\Http\Controllers\PaymentReceiptVoucherController;
+
+// Stores
 use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\WarehouseOpeningController;
 use App\Http\Controllers\DispatchSrvController;
 use App\Http\Controllers\WarehouseTransferController;
 use App\Http\Controllers\WarehouseReceiptController;
+
+// Production
+use App\Http\Controllers\BomController;
+use App\Http\Controllers\RouteCardController;
+use App\Http\Controllers\MaterialIssueController;
+use App\Http\Controllers\MtaController;
+use App\Http\Controllers\ProductionReportController;
+use App\Http\Controllers\JobOrderController;
+use App\Http\Controllers\ChallanController;
+use App\Http\Controllers\ExternalGrnController;
+use App\Http\Controllers\JobBillController;
+use App\Http\Controllers\RouteCardClosureController;
+
+// Maintenance
+use App\Http\Controllers\ToolController;
+use App\Http\Controllers\ToolMaintenanceController;
+use App\Http\Controllers\ToolCalibrationController;
+use App\Http\Controllers\ToolRepairController;
+
+// Finance
+use App\Http\Controllers\JournalVoucherController;
+use App\Http\Controllers\PaymentReceiptVoucherController;
+use App\Http\Controllers\ContraVoucherController;
+use App\Http\Controllers\GstJournalVoucherController;
+use App\Http\Controllers\BankReconciliationController;
+use App\Http\Controllers\CreditCardStatementController;
 
 // Public auth routes
 Route::post('/login', [AuthController::class, 'login']);
@@ -28,7 +57,21 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/profile', [AuthController::class, 'profile']);
     Route::get('/user', fn(Request $r) => $r->user());
 
-    // Purchase Management Module
+    // =========================================
+    // SALES MODULE
+    // =========================================
+    Route::apiResource('customers', CustomerController::class);
+    Route::apiResource('products', ProductController::class);
+    Route::apiResource('inquiries', InquiryController::class);
+    Route::apiResource('quotations', QuotationController::class);
+    Route::apiResource('sale-orders', SaleOrderController::class);
+    Route::apiResource('dispatch-advice', DispatchAdviceController::class);
+    Route::apiResource('invoices', InvoiceController::class);
+    // Route::apiResource('voucher-receipts', PaymentReceiptVoucherController::class);
+
+    // =========================================
+    // PURCHASE MODULE
+    // =========================================
     Route::apiResource('material-indents', \App\Http\Controllers\MaterialIndentController::class);
     Route::apiResource('purchase-orders', \App\Http\Controllers\PurchaseOrderController::class);
     Route::apiResource('purchase-schedules', \App\Http\Controllers\PurchaseScheduleController::class);
@@ -38,50 +81,60 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('purchase-billbooks', \App\Http\Controllers\PurchaseBillbookController::class);
     Route::apiResource('voucher-payments', \App\Http\Controllers\VoucherPaymentController::class);
 
-    // Stores Module
+    // =========================================
+    // STORES MODULE
+    // =========================================
     Route::apiResource('warehouses', WarehouseController::class);
     Route::apiResource('warehouse-openings', WarehouseOpeningController::class);
     Route::apiResource('dispatch-srvs', DispatchSrvController::class);
     Route::apiResource('warehouse-transfers', WarehouseTransferController::class);
     Route::apiResource('warehouse-receipts', WarehouseReceiptController::class);
 
-    // Quality
+    // =========================================
+    // QUALITY MODULE
+    // =========================================
     Route::apiResource('material-transfer-slips', \App\Http\Controllers\MaterialTransferSlipController::class);
     Route::apiResource('process-quality-controls', \App\Http\Controllers\ProcessQualityControlController::class);
     Route::apiResource('pre-dispatch-inspections', \App\Http\Controllers\PreDispatchInspectionController::class);
     Route::apiResource('quality-rejection-disposals', \App\Http\Controllers\QualityRejectionDisposalController::class);
 
-    // Logistics
+    // =========================================
+    // LOGISTICS MODULE
+    // =========================================
     Route::apiResource('transporters', \App\Http\Controllers\TransporterController::class);
     Route::apiResource('logistics-bookings', \App\Http\Controllers\LogisticsBookingController::class);
     Route::apiResource('delivery-challans', \App\Http\Controllers\DeliveryChallanController::class);
     Route::apiResource('freight-billbooks', \App\Http\Controllers\FreightBillbookController::class);
 
     // =========================================
-    // SALES MODULE
+    // PRODUCTION MODULE
     // =========================================
+    Route::apiResource('bom', BomController::class);
+    Route::apiResource('routecards', RouteCardController::class);
+    Route::apiResource('material-issues', MaterialIssueController::class)->only(['index', 'store']);
+    Route::apiResource('mta', MtaController::class)->only(['index', 'store']);
+    Route::apiResource('production-reports', ProductionReportController::class)->only(['index', 'store']);
+    Route::apiResource('job-orders', JobOrderController::class)->only(['index', 'store']);
+    Route::apiResource('challans', ChallanController::class)->only(['index', 'store']);
+    Route::apiResource('external-grn', ExternalGrnController::class)->only(['index', 'store']);
+    Route::apiResource('job-bills', JobBillController::class)->only(['index', 'store']);
+    Route::post('routecard-close', [RouteCardClosureController::class, 'store']);
 
-    // Customer Master
-    Route::apiResource('customers', CustomerController::class);
+    // =========================================
+    // MAINTENANCE MODULE
+    // =========================================
+    Route::apiResource('tools', ToolController::class);
+    Route::apiResource('tool-maintenance', ToolMaintenanceController::class);
+    Route::apiResource('tool-calibration', ToolCalibrationController::class);
+    Route::apiResource('tool-repairs', ToolRepairController::class);
 
-    // Product Master
-    Route::apiResource('products', ProductController::class);
-
-    // Inquiries
-    Route::apiResource('inquiries', InquiryController::class);
-
-    // Quotations
-    Route::apiResource('quotations', QuotationController::class);
-
-    // Sale Orders
-    Route::apiResource('sale-orders', SaleOrderController::class);
-
-    // Dispatch Advice
-    Route::apiResource('dispatch-advice', DispatchAdviceController::class);
-
-    // Invoices
-    Route::apiResource('invoices', InvoiceController::class);
-
-    // Voucher Receipts
-    Route::apiResource('voucher-receipts', PaymentReceiptVoucherController::class);
+    // =========================================
+    // FINANCE MODULE
+    // =========================================
+    Route::apiResource('journal-vouchers', JournalVoucherController::class);
+    Route::apiResource('payment-receipts', PaymentReceiptVoucherController::class);
+    Route::apiResource('contra-vouchers', ContraVoucherController::class);
+    Route::apiResource('gst-journals', GstJournalVoucherController::class);
+    Route::apiResource('bank-reconciliation', BankReconciliationController::class);
+    Route::apiResource('credit-card-statements', CreditCardStatementController::class);
 });
