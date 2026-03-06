@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained('products');
             $table->integer('rejected_qty');
             $table->enum('source', ['IQC', 'PQC', 'PDI', 'Customer Return']);
-            $table->enum('disposal_action', ['Rework', 'Scrap', 'Return to Vendor', 'Use As-Is'])->default('Scrap');
+            $table->enum('disposal_action', ['Scrap', 'Return', 'Rework', 'Downgrade'])->default('Scrap');
             $table->text('reason')->nullable();
             $table->foreignId('disposed_by')->constrained('users');
             $table->date('disposal_date');

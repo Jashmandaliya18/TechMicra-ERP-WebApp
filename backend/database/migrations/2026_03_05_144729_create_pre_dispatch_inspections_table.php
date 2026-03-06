@@ -19,6 +19,9 @@ return new class extends Migration
             $table->integer('inspected_qty');
             $table->integer('passed_qty')->default(0);
             $table->integer('failed_qty')->default(0);
+            $table->string('box_no')->nullable();
+            $table->enum('packaging_condition', ['OK', 'Damaged'])->default('OK');
+            $table->enum('label_accuracy', ['Pass', 'Fail'])->default('Pass');
             $table->enum('result', ['Approved', 'Rejected', 'Conditional'])->default('Approved');
             $table->foreignId('inspected_by')->constrained('users');
             $table->date('inspection_date');
