@@ -28,6 +28,7 @@ import JobOrders from "../pages/modules/JobOrders";
 import Transporters from "../pages/modules/Transporters";
 import LogisticsBookings from "../pages/modules/LogisticsBookings";
 import DeliveryChallans from "../pages/modules/DeliveryChallans";
+import FreightBillbooks from "../pages/modules/FreightBillbooks";
 
 // Quality
 import QualityInspections from "../pages/modules/QualityInspections";
@@ -100,6 +101,7 @@ function AppRoutes() {
                     <Route path="/logistics/transporters" element={<Transporters />} />
                     <Route path="/logistics/bookings" element={<LogisticsBookings />} />
                     <Route path="/logistics/challans" element={<DeliveryChallans />} />
+                    <Route path="/logistics/freight" element={<FreightBillbooks />} />
 
                     {/* Quality */}
                     <Route path="/quality/inspections" element={<QualityInspections />} />
