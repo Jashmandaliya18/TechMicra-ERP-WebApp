@@ -52,16 +52,16 @@ export default function Dashboard() {
             case "Super Admin": return (
                 <Grid container spacing={3}>
                     {/* Super Admin Widgets based on requirements */}
-                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Total Sales" value="₹54.2L" icon={<TrendingUp />} color="#1565c0" /></Grid>
-                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Pending Orders" value="18" icon={<ShoppingCart />} color="#e65100" /></Grid>
-                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Low Stock Items" value="12" icon={<Warning />} color="#d32f2f" /></Grid>
-                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Pending POs" value="8" icon={<RequestQuote />} color="#7b1fa2" /></Grid>
-                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Running Batches" value="14" icon={<Factory />} color="#e65100" /></Grid>
-                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Dispatch Pending" value="22" icon={<LocalShipping />} color="#00838f" /></Grid>
-                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Total Employees" value="124" icon={<People />} color="#ad1457" /></Grid>
-                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Pending Payments" value="₹4.5L" icon={<AccountBalance />} color="#d32f2f" /></Grid>
-                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Cash Flow" value="₹12.2L" icon={<TrendingUp />} color="#2e7d32" /></Grid>
-                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Notifications" value="15" icon={<Assignment />} color="#1565c0" /></Grid>
+                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Total Sales" value="₹0" icon={<TrendingUp />} color="#1565c0" /></Grid>
+                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Pending Orders" value="0" icon={<ShoppingCart />} color="#e65100" /></Grid>
+                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Low Stock Items" value="0" icon={<Warning />} color="#d32f2f" /></Grid>
+                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Pending POs" value="0" icon={<RequestQuote />} color="#7b1fa2" /></Grid>
+                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Running Batches" value="0" icon={<Factory />} color="#e65100" /></Grid>
+                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Dispatch Pending" value="0" icon={<LocalShipping />} color="#00838f" /></Grid>
+                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Total Employees" value="0" icon={<People />} color="#ad1457" /></Grid>
+                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Pending Payments" value="₹0" icon={<AccountBalance />} color="#d32f2f" /></Grid>
+                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Cash Flow" value="₹0" icon={<TrendingUp />} color="#2e7d32" /></Grid>
+                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Notifications" value="0" icon={<Assignment />} color="#1565c0" /></Grid>
                 </Grid>
             );
             default: return null;
