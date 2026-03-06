@@ -5,16 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MaterialIssue extends Model
+class Mta extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'issue_id',
-        'route_card_ref',
+        'mta_no',
+        'from_department',
+        'to_department',
         'item',
-        'qty_requested',
-        'qty_issued',
-        'issued_date',
+        'qty',
+        'received_by',
+        'transfer_date',
     ];
 }

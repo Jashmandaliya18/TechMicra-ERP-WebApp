@@ -1,4 +1,25 @@
-import ModulePage from "../../components/ModulePage";
+import React from "react";
+import MuiCrudPage from "../../components/MuiCrudPage";
+
 export default function DailyReports() {
-    return <ModulePage title="Daily Production Reports" subtitle="Log daily output, scrap, and work center performance" columns={["Date", "Work Center", "Product", "Qty Produced", "Scrap", "Reported By"]} addLabel="New Report" />;
+    return (
+        <MuiCrudPage
+            title="Production Reports"
+            endpoint="/production-reports"
+            columns={[
+                { key: "date", label: "Date" },
+                { key: "shift", label: "Shift" },
+                { key: "machine_no", label: "Machine" },
+                { key: "production_qty", label: "Produced" }
+            ]}
+            fields={[
+                { name: "date", label: "Date", type: "date" },
+                { name: "shift", label: "Shift", type: "text" },
+                { name: "machine_no", label: "Machine No", type: "text" },
+                { name: "operator", label: "Operator", type: "text" },
+                { name: "production_qty", label: "Production Quantity", type: "number" },
+                { name: "rejection_qty", label: "Rejection Quantity", type: "number" }
+            ]}
+        />
+    );
 }

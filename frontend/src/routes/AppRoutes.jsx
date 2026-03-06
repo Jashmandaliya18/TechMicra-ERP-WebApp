@@ -21,8 +21,11 @@ import PurchaseBillbooks from "../pages/modules/PurchaseBillbooks";
 import ProductionBom from "../pages/modules/ProductionBom";
 import Routecards from "../pages/modules/Routecards";
 import MaterialIssues from "../pages/modules/MaterialIssues";
+import MtaPage from "../pages/modules/MtaPage";
 import DailyReports from "../pages/modules/DailyReports";
 import JobOrders from "../pages/modules/JobOrders";
+import ExternalGrn from "../pages/modules/ExternalGrn";
+import JobWorkBills from "../pages/modules/JobWorkBills";
 
 // Logistics
 import Transporters from "../pages/modules/Transporters";
@@ -93,8 +96,11 @@ function AppRoutes() {
                     <Route path="/production/bom" element={<ProductionBom />} />
                     <Route path="/production/routecards" element={<Routecards />} />
                     <Route path="/production/material-issues" element={<MaterialIssues />} />
+                    <Route path="/production/mta" element={<MtaPage />} />
                     <Route path="/production/reports" element={<DailyReports />} />
                     <Route path="/production/job-orders" element={<JobOrders />} />
+                    <Route path="/production/external-grn" element={<ExternalGrn />} />
+                    <Route path="/production/job-bills" element={<JobWorkBills />} />
 
                     {/* Logistics */}
                     <Route path="/logistics/transporters" element={<Transporters />} />
