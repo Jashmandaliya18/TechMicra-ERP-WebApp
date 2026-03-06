@@ -23,6 +23,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/profile', [AuthController::class, 'profile']);
     Route::get('/user', fn(Request $r) => $r->user());
 
+    // Logistics
+    Route::apiResource('transporters', \App\Http\Controllers\TransporterController::class);
+    Route::apiResource('logistics-bookings', \App\Http\Controllers\LogisticsBookingController::class);
+    Route::apiResource('delivery-challans', \App\Http\Controllers\DeliveryChallanController::class);
+    Route::apiResource('freight-billbooks', \App\Http\Controllers\FreightBillbookController::class);
+
     // =========================================
     // SALES MODULE
     // =========================================

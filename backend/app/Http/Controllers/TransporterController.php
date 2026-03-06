@@ -7,43 +7,55 @@ use Illuminate\Http\Request;
 
 class TransporterController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return response()->json(Transporter::orderBy('name')->get());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name'          => 'required|string|max:255',
+            'contact_person'=> 'nullable|string|max:255',
+            'phone'         => 'nullable|string|max:20',
+            'email'         => 'nullable|email|max:255',
+            'address'       => 'nullable|string',
+            'gst_no'        => 'nullable|string|max:20',
+            'vehicle_types' => 'nullable|string|max:255',
+            'is_active'     => 'boolean',
+        ]);
+
+        $transporter = Transporter::create($validated);
+
+        return response()->json($transporter, 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Transporter $transporter)
     {
-        //
+        return response()->json($transporter);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Transporter $transporter)
     {
-        //
+        $validated = $request->validate([
+            'name'          => 'required|string|max:255',
+            'contact_person'=> 'nullable|string|max:255',
+            'phone'         => 'nullable|string|max:20',
+            'email'         => 'nullable|email|max:255',
+            'address'       => 'nullable|string',
+            'gst_no'        => 'nullable|string|max:20',
+            'vehicle_types' => 'nullable|string|max:255',
+            'is_active'     => 'boolean',
+        ]);
+
+        $transporter->update($validated);
+
+        return response()->json($transporter);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Transporter $transporter)
     {
-        //
+        $transporter->delete();
+        return response()->json(['message' => 'Transporter deleted']);
     }
 }
