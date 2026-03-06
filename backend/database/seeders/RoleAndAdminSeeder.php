@@ -17,17 +17,21 @@ class RoleAndAdminSeeder extends Seeder
     public function run(): void
     {
         // Create basic roles
-        $superAdminRole = Role::create(['name' => 'Super Admin']);
-        $userRole = Role::create(['name' => 'User']);
+        $superAdminRole = Role::firstOrCreate(['name' => 'Super Admin']);
+        $userRole = Role::firstOrCreate(['name' => 'User']);
 
         // Create Super Admin User
-        $superAdmin = User::create([
-            'name' => 'Super Admin',
-            'email' => 'admin@techmicra.com',
-            'password' => Hash::make('password'),
-        ]);
+        $superAdmin = User::firstOrCreate(
+            ['email' => 'admin@techmicra.com'],
+            [
+                'name' => 'Super Admin',
+                'password' => 'admin123',
+            ]
+        );
 
         // Assign Role
-        $superAdmin->assignRole($superAdminRole);
+        if (!$superAdmin->hasRole('Super Admin')) {
+            $superAdmin->assignRole($superAdminRole);
+        }
     }
 }

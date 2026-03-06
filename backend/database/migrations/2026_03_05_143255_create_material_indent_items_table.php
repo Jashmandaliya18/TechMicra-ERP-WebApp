@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('material_indent_id')->constrained('material_indents')->cascadeOnDelete();
             $table->foreignId('product_id')->constrained('products'); // Item Name
+            $table->integer('current_stock')->default(0);
             $table->integer('requested_qty');
             $table->timestamps();
         });

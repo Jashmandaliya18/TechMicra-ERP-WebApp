@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('bill_no')->unique();
             $table->foreignId('vendor_id')->constrained('vendors');
             $table->string('invoice_ref')->nullable(); // Vendor's invoice number
+            $table->date('invoice_date')->nullable();
             $table->foreignId('goods_receipt_note_id')->nullable()->constrained('goods_receipt_notes');
             $table->decimal('amount', 15, 2)->default(0);
             $table->decimal('gst_amount', 15, 2)->default(0);

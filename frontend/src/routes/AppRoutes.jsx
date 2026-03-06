@@ -11,11 +11,17 @@ import Quotations from "../pages/modules/Quotations";
 import SaleOrders from "../pages/modules/SaleOrders";
 import Invoices from "../pages/modules/Invoices";
 
-// Purchase
-import MaterialIndents from "../pages/modules/MaterialIndents";
-import PurchaseOrders from "../pages/modules/PurchaseOrders";
-import GoodsReceiptNotes from "../pages/modules/GoodsReceiptNotes";
-import PurchaseBillbooks from "../pages/modules/PurchaseBillbooks";
+// Purchase Module
+import PurchaseLayout from "../components/PurchaseLayout";
+import PurchaseDashboard from "../pages/purchase/PurchaseDashboard";
+import MaterialIndentsPage from "../pages/purchase/MaterialIndents";
+import PurchaseOrdersPage from "../pages/purchase/PurchaseOrders";
+import PurchaseSchedulePage from "../pages/purchase/PurchaseSchedule";
+import GoodsReceiptNotesPage from "../pages/purchase/GoodsReceiptNotes";
+import IQCPage from "../pages/purchase/IQC";
+import MaterialReceiptsPage from "../pages/purchase/MaterialReceipts";
+import PurchaseBillbookPage from "../pages/purchase/PurchaseBillbook";
+import VoucherPaymentsPage from "../pages/purchase/VoucherPayments";
 
 // Production
 import ProductionBom from "../pages/modules/ProductionBom";
@@ -83,11 +89,18 @@ function AppRoutes() {
                     <Route path="/sales/orders" element={<SaleOrders />} />
                     <Route path="/sales/invoices" element={<Invoices />} />
 
-                    {/* Purchase */}
-                    <Route path="/purchase/indents" element={<MaterialIndents />} />
-                    <Route path="/purchase/orders" element={<PurchaseOrders />} />
-                    <Route path="/purchase/grn" element={<GoodsReceiptNotes />} />
-                    <Route path="/purchase/billbooks" element={<PurchaseBillbooks />} />
+                    {/* Purchase Module Group */}
+                    <Route path="/purchase" element={<PurchaseLayout />}>
+                        <Route path="dashboard" element={<PurchaseDashboard />} />
+                        <Route path="material-indents" element={<MaterialIndentsPage />} />
+                        <Route path="orders" element={<PurchaseOrdersPage />} />
+                        <Route path="schedules" element={<PurchaseSchedulePage />} />
+                        <Route path="grn" element={<GoodsReceiptNotesPage />} />
+                        <Route path="iqc" element={<IQCPage />} />
+                        <Route path="receipts" element={<MaterialReceiptsPage />} />
+                        <Route path="billbook" element={<PurchaseBillbookPage />} />
+                        <Route path="payments" element={<VoucherPaymentsPage />} />
+                    </Route>
 
                     {/* Production */}
                     <Route path="/production/bom" element={<ProductionBom />} />
