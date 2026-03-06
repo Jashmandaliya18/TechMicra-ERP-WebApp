@@ -181,6 +181,21 @@ const navSections = [
             },
         ],
     },
+    {
+        label: "System Administration",
+        items: [
+            {
+                text: "User Management",
+                icon: <People />,
+                path: "/admin/users",
+            },
+            {
+                text: "Roles",
+                icon: <VerifiedUser />,
+                path: "/admin/roles",
+            },
+        ],
+    },
 ];
 
 function NavItem({ item, open, location, navigate }) {
@@ -263,7 +278,7 @@ function NavItem({ item, open, location, navigate }) {
 export default function DashboardLayout() {
     const [drawerOpen, setDrawerOpen] = useState(true);
     const [anchorEl, setAnchorEl] = useState(null);
-    const { user, logout } = useAuth();
+    const { user, logout, hasPermission } = useAuth();
     const { mode, toggleTheme } = useThemeMode();
     const navigate = useNavigate();
     const location = useLocation();
@@ -328,23 +343,32 @@ export default function DashboardLayout() {
 
                 {/* Navigation */}
                 <Box sx={{ flex: 1, overflowY: "auto", overflowX: "hidden", py: 1 }}>
-                    {navSections.map((section) => (
-                        <Box key={section.label} sx={{ mb: 1 }}>
-                            {drawerOpen && (
-                                <Typography
-                                    variant="overline"
-                                    sx={{ px: 3, pt: 1.5, pb: 0.5, display: "block", color: "text.secondary", fontSize: "0.65rem", letterSpacing: "0.1em" }}
-                                >
-                                    {section.label}
-                                </Typography>
-                            )}
-                            <List disablePadding>
-                                {section.items.map((item) => (
-                                    <NavItem key={item.text} item={item} open={drawerOpen} location={location} navigate={navigate} />
-                                ))}
-                            </List>
-                        </Box>
-                    ))}
+                    {navSections.map((section) => {
+                        const filteredItems = section.items.filter(item => {
+                            if (item.text === "Dashboard") return true;
+                            return hasPermission(`${item.text}.view`);
+                        });
+
+                        if (filteredItems.length === 0) return null;
+
+                        return (
+                            <Box key={section.label} sx={{ mb: 1 }}>
+                                {drawerOpen && (
+                                    <Typography
+                                        variant="overline"
+                                        sx={{ px: 3, pt: 1.5, pb: 0.5, display: "block", color: "text.secondary", fontSize: "0.65rem", letterSpacing: "0.1em" }}
+                                    >
+                                        {section.label}
+                                    </Typography>
+                                )}
+                                <List disablePadding>
+                                    {filteredItems.map((item) => (
+                                        <NavItem key={item.text} item={item} open={drawerOpen} location={location} navigate={navigate} />
+                                    ))}
+                                </List>
+                            </Box>
+                        );
+                    })}
                 </Box>
 
                 {/* Collapse Toggle */}

@@ -5,6 +5,8 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [role, setRole] = useState(null);
+    const [permissions, setPermissions] = useState([]);
     const [loading, setLoading] = useState(true);
 
     // Axios default configuration
@@ -24,7 +26,10 @@ export const AuthProvider = ({ children }) => {
     const fetchProfile = async () => {
         try {
             const response = await axios.get("/profile");
-            setUser(response.data);
+            const { user: userData, role: userRole, permissions: userPermissions } = response.data;
+            setUser(userData);
+            setRole(userRole);
+            setPermissions(userPermissions || []);
         } catch (error) {
             console.error("Profile fetch failed", error);
             logout();
@@ -35,11 +40,13 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (email, password) => {
         const response = await axios.post("/login", { email, password });
-        const { token, user: userData } = response.data;
+        const { token, user: userData, role: userRole, permissions: userPermissions } = response.data;
 
         localStorage.setItem("token", token);
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         setUser(userData);
+        setRole(userRole);
+        setPermissions(userPermissions || []);
         return true;
     };
 
@@ -47,10 +54,16 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem("token");
         delete axios.defaults.headers.common["Authorization"];
         setUser(null);
+        setRole(null);
+        setPermissions([]);
+    };
+
+    const hasPermission = (permission) => {
+        return permissions.includes(permission) || role === "Super Admin";
     };
 
     return (
-        <AuthContext.Provider value={{ user, loading, login, logout }}>
+        <AuthContext.Provider value={{ user, role, permissions, loading, login, logout, hasPermission }}>
             {children}
         </AuthContext.Provider>
     );

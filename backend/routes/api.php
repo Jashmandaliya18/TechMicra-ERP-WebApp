@@ -95,7 +95,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // =========================================
     // QUALITY MODULE
     // =========================================
-    Route::apiResource('incoming-quality-controls', \App\Http\Controllers\IncomingQualityControlController::class);
+    // Route::apiResource('incoming-quality-controls', \App\Http\Controllers\IncomingQualityControlController::class);
     Route::apiResource('material-transfer-slips', \App\Http\Controllers\MaterialTransferSlipController::class);
     Route::apiResource('process-quality-controls', \App\Http\Controllers\ProcessQualityControlController::class);
     Route::apiResource('pre-dispatch-inspections', \App\Http\Controllers\PreDispatchInspectionController::class);
@@ -158,13 +158,20 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('payroll', \App\Http\Controllers\PayrollController::class);
     Route::apiResource('employee-advances', \App\Http\Controllers\EmployeeAdvanceController::class);
 
+// Admin Management Routes
+Route::middleware(['auth:sanctum', 'check.permission:User Management.view'])->group(function () {
+    Route::get('/admin/users', [App\Http\Controllers\ManagementController::class, 'getUsers']);
+    Route::post('/admin/users', [App\Http\Controllers\ManagementController::class, 'createUser']);
+    Route::get('/admin/roles', [App\Http\Controllers\ManagementController::class, 'getRoles']);
+    Route::post('/admin/roles/{role}/permissions', [App\Http\Controllers\ManagementController::class, 'updateRolePermissions']);
+});
     // =========================================
     // CONTRACTORS MODULE
     // =========================================
     Route::apiResource('contractor-employees', \App\Http\Controllers\ContractorEmployeeController::class);
-    Route::apiResource('contractor-salary-heads', \App\Http\Controllers\ContractorSalaryHeadController::class);
-    Route::apiResource('contractor-salary-structures', \App\Http\Controllers\ContractorSalaryStructureController::class);
-    Route::apiResource('contractor-salary-sheets', \App\Http\Controllers\ContractorSalarySheetController::class);
+    // Route::apiResource('contractor-salary-heads', \App\Http\Controllers\ContractorSalaryHeadController::class);
+    // Route::apiResource('contractor-salary-structures', \App\Http\Controllers\ContractorSalaryStructureController::class);
+    Route::apiResource('contractor-salary-sheets', \App\Http\Controllers\ContractorMonthlySalaryController::class);
     Route::apiResource('contractor-advances', \App\Http\Controllers\ContractorAdvanceController::class);
     Route::apiResource('contractor-vouchers', \App\Http\Controllers\VoucherPaymentController::class);
 });

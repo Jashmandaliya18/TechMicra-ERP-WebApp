@@ -2,8 +2,8 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { Box, CircularProgress, Typography } from "@mui/material";
 
-export default function ProtectedRoute({ allowedRoles }) {
-    const { user, loading } = useAuth();
+export default function ProtectedRoute({ allowedRoles, requiredPermission }) {
+    const { user, role, hasPermission, loading } = useAuth();
 
     if (loading) {
         return (
@@ -18,13 +18,16 @@ export default function ProtectedRoute({ allowedRoles }) {
         return <Navigate to="/login" replace />;
     }
 
+    // Check Role-based access
     if (allowedRoles && allowedRoles.length > 0) {
-        // Check if the user has any of the allowed roles
-        const userRoles = user.roles?.map(role => role.name) || [];
-        const hasRole = allowedRoles.some(role => userRoles.includes(role));
+        if (!allowedRoles.includes(role) && role !== 'Super Admin') {
+            return <Navigate to="/unauthorized" replace />;
+        }
+    }
 
-        // Fallback: If no role match AND they aren't a Super Admin, deny
-        if (!hasRole && !userRoles.includes('Super Admin')) {
+    // Check Permission-based access
+    if (requiredPermission) {
+        if (!hasPermission(requiredPermission)) {
             return <Navigate to="/unauthorized" replace />;
         }
     }

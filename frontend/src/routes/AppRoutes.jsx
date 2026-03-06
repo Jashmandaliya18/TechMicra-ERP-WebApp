@@ -4,6 +4,8 @@ import Dashboard from "../pages/Dashboard";
 import Unauthorized from "../pages/Unauthorized";
 import ProtectedRoute from "./ProtectedRoute";
 import DashboardLayout from "../components/DashboardLayout";
+import UserManagement from "../pages/UserManagement";
+import RoleManagement from "../pages/RoleManagement";
 
 // Sales
 import SalesInquiries from "../pages/modules/SalesInquiries";
@@ -109,97 +111,125 @@ function AppRoutes() {
                     <Route path="/" element={<Dashboard />} />
 
                     {/* Sales */}
-                    <Route path="/sales/customers" element={<CustomerMaster />} />
-                    <Route path="/sales/products" element={<ProductMaster />} />
-                    <Route path="/sales/inquiries" element={<SalesInquiries />} />
-                    <Route path="/sales/quotations" element={<Quotations />} />
-                    <Route path="/sales/orders" element={<SaleOrders />} />
-                    <Route path="/sales/dispatch" element={<DispatchAdvicePage />} />
-                    <Route path="/sales/invoices" element={<Invoices />} />
-                    <Route path="/sales/receipts" element={<VoucherReceipts />} />
+                    <Route element={<ProtectedRoute requiredPermission="Sales.view" />}>
+                        <Route path="/sales/customers" element={<CustomerMaster />} />
+                        <Route path="/sales/products" element={<ProductMaster />} />
+                        <Route path="/sales/inquiries" element={<SalesInquiries />} />
+                        <Route path="/sales/quotations" element={<Quotations />} />
+                        <Route path="/sales/orders" element={<SaleOrders />} />
+                        <Route path="/sales/dispatch" element={<DispatchAdvicePage />} />
+                        <Route path="/sales/invoices" element={<Invoices />} />
+                        <Route path="/sales/receipts" element={<VoucherReceipts />} />
+                    </Route>
 
                     {/* Purchase Module */}
-                    <Route path="/purchase/dashboard" element={<PurchaseDashboard />} />
-                    <Route path="/purchase/material-indents" element={<MaterialIndentsPage />} />
-                    <Route path="/purchase/material-indents/new" element={<MaterialIndentForm />} />
-                    <Route path="/purchase/material-indents/:id" element={<MaterialIndentView />} />
-                    <Route path="/purchase/material-indents/edit/:id" element={<MaterialIndentForm />} />
-                    <Route path="/purchase/orders" element={<PurchaseOrdersPage />} />
-                    <Route path="/purchase/orders/new" element={<PurchaseOrderForm />} />
-                    <Route path="/purchase/orders/:id" element={<PurchaseOrderView />} />
-                    <Route path="/purchase/orders/edit/:id" element={<PurchaseOrderForm />} />
-                    <Route path="/purchase/schedules" element={<PurchaseSchedulePage />} />
-                    <Route path="/purchase/grn" element={<GoodsReceiptNotesPage />} />
-                    <Route path="/purchase/grn/new" element={<GRNForm />} />
-                    <Route path="/purchase/iqc" element={<IQCPage />} />
-                    <Route path="/purchase/receipts" element={<MaterialReceiptsPage />} />
-                    <Route path="/purchase/billbook" element={<PurchaseBillbookPage />} />
-                    <Route path="/purchase/payments" element={<VoucherPaymentsPage />} />
+                    <Route element={<ProtectedRoute requiredPermission="Purchase.view" />}>
+                        <Route path="/purchase/dashboard" element={<PurchaseDashboard />} />
+                        <Route path="/purchase/material-indents" element={<MaterialIndentsPage />} />
+                        <Route path="/purchase/material-indents/new" element={<MaterialIndentForm />} />
+                        <Route path="/purchase/material-indents/:id" element={<MaterialIndentView />} />
+                        <Route path="/purchase/material-indents/edit/:id" element={<MaterialIndentForm />} />
+                        <Route path="/purchase/orders" element={<PurchaseOrdersPage />} />
+                        <Route path="/purchase/orders/new" element={<PurchaseOrderForm />} />
+                        <Route path="/purchase/orders/:id" element={<PurchaseOrderView />} />
+                        <Route path="/purchase/orders/edit/:id" element={<PurchaseOrderForm />} />
+                        <Route path="/purchase/schedules" element={<PurchaseSchedulePage />} />
+                        <Route path="/purchase/grn" element={<GoodsReceiptNotesPage />} />
+                        <Route path="/purchase/grn/new" element={<GRNForm />} />
+                        <Route path="/purchase/iqc" element={<IQCPage />} />
+                        <Route path="/purchase/receipts" element={<MaterialReceiptsPage />} />
+                        <Route path="/purchase/billbook" element={<PurchaseBillbookPage />} />
+                        <Route path="/purchase/payments" element={<VoucherPaymentsPage />} />
+                    </Route>
 
                     {/* Production */}
-                    <Route path="/production/bom" element={<ProductionBom />} />
-                    <Route path="/production/routecards" element={<Routecards />} />
-                    <Route path="/production/material-issues" element={<MaterialIssues />} />
-                    <Route path="/production/mta" element={<MtaPage />} />
-                    <Route path="/production/reports" element={<DailyReports />} />
-                    <Route path="/production/job-orders" element={<JobOrders />} />
-                    <Route path="/production/external-grn" element={<ExternalGrn />} />
-                    <Route path="/production/job-bills" element={<JobWorkBills />} />
+                    <Route element={<ProtectedRoute requiredPermission="Production.view" />}>
+                        <Route path="/production/bom" element={<ProductionBom />} />
+                        <Route path="/production/routecards" element={<Routecards />} />
+                        <Route path="/production/material-issues" element={<MaterialIssues />} />
+                        <Route path="/production/mta" element={<MtaPage />} />
+                        <Route path="/production/reports" element={<DailyReports />} />
+                        <Route path="/production/job-orders" element={<JobOrders />} />
+                        <Route path="/production/external-grn" element={<ExternalGrn />} />
+                        <Route path="/production/job-bills" element={<JobWorkBills />} />
+                    </Route>
 
                     {/* Logistics */}
-                    <Route path="/logistics/transporters" element={<Transporters />} />
-                    <Route path="/logistics/bookings" element={<LogisticsBookings />} />
-                    <Route path="/logistics/challans" element={<DeliveryChallans />} />
-                    <Route path="/logistics/freight" element={<FreightBillbooks />} />
+                    <Route element={<ProtectedRoute requiredPermission="Logistics.view" />}>
+                        <Route path="/logistics/transporters" element={<Transporters />} />
+                        <Route path="/logistics/bookings" element={<LogisticsBookings />} />
+                        <Route path="/logistics/challans" element={<DeliveryChallans />} />
+                        <Route path="/logistics/freight" element={<FreightBillbooks />} />
+                    </Route>
 
                     {/* Quality */}
-                    <Route path="/quality/inspections" element={<QualityInspections />} />
-                    <Route path="/quality/mts" element={<QualityMTS />} />
-                    <Route path="/quality/pqc" element={<ProcessQC />} />
-                    <Route path="/quality/pdi" element={<PreDispatchInspection />} />
-                    <Route path="/quality/rejections" element={<QualityRejections />} />
+                    <Route element={<ProtectedRoute requiredPermission="Quality.view" />}>
+                        <Route path="/quality/inspections" element={<QualityInspections />} />
+                        <Route path="/quality/mts" element={<QualityMTS />} />
+                        <Route path="/quality/pqc" element={<ProcessQC />} />
+                        <Route path="/quality/pdi" element={<PreDispatchInspection />} />
+                        <Route path="/quality/rejections" element={<QualityRejections />} />
+                    </Route>
 
                     {/* Maintenance */}
-                    <Route path="/maintenance/tools" element={<ToolMaster />} />
-                    <Route path="/maintenance/chart" element={<MaintenanceSchedule />} />
-                    <Route path="/maintenance/calibration" element={<CalibrationReports />} />
-                    <Route path="/maintenance/repairs" element={<ToolRepairs />} />
+                    <Route element={<ProtectedRoute requiredPermission="Maintenance.view" />}>
+                        <Route path="/maintenance/tools" element={<ToolMaster />} />
+                        <Route path="/maintenance/chart" element={<MaintenanceSchedule />} />
+                        <Route path="/maintenance/calibration" element={<CalibrationReports />} />
+                        <Route path="/maintenance/repairs" element={<ToolRepairs />} />
+                    </Route>
 
                     {/* Finance */}
-                    <Route path="/finance/journal" element={<JournalVoucherPage />} />
-                    <Route path="/finance/vouchers" element={<PaymentReceiptPage />} />
-                    <Route path="/finance/contra" element={<ContraVoucherPage />} />
-                    <Route path="/finance/gst" element={<GstJournalPage />} />
-                    <Route path="/finance/bank-rec" element={<BankRecPage />} />
-                    <Route path="/finance/credit-card" element={<CreditCardStatementPage />} />
+                    <Route element={<ProtectedRoute requiredPermission="Finance.view" />}>
+                        <Route path="/finance/journal" element={<JournalVoucherPage />} />
+                        <Route path="/finance/vouchers" element={<PaymentReceiptPage />} />
+                        <Route path="/finance/contra" element={<ContraVoucherPage />} />
+                        <Route path="/finance/gst" element={<GstJournalPage />} />
+                        <Route path="/finance/bank-rec" element={<BankRecPage />} />
+                        <Route path="/finance/credit-card" element={<CreditCardStatementPage />} />
+                    </Route>
 
                     {/* HR */}
-                    <Route path="/hr/employees" element={<Employees />} />
-                    <Route path="/hr/salary-heads" element={<SalaryHeads />} />
-                    <Route path="/hr/salary" element={<SalaryStructures />} />
-                    <Route path="/hr/sheets" element={<Payroll />} />
-                    <Route path="/hr/advances" element={<EmployeeAdvances />} />
+                    <Route element={<ProtectedRoute requiredPermission="HR.view" />}>
+                        <Route path="/hr/employees" element={<Employees />} />
+                        <Route path="/hr/salary-heads" element={<SalaryHeads />} />
+                        <Route path="/hr/salary" element={<SalaryStructures />} />
+                        <Route path="/hr/sheets" element={<Payroll />} />
+                        <Route path="/hr/advances" element={<EmployeeAdvances />} />
+                    </Route>
 
                     {/* Contractors */}
-                    <Route path="/contractors/employees" element={<ContractorStaff />} />
-                    <Route path="/contractors/salary-heads" element={<SalaryHeadMaster />} />
-                    <Route path="/contractors/salary-structure" element={<ContractorSalaryStructure />} />
-                    <Route path="/contractors/salary-sheets" element={<SalarySheet />} />
-                    <Route path="/contractors/advances" element={<AdvanceMemo />} />
-                    <Route path="/contractors/vouchers" element={<VoucherPayment />} />
+                    <Route element={<ProtectedRoute requiredPermission="Contractors.view" />}>
+                        <Route path="/contractors/employees" element={<ContractorStaff />} />
+                        <Route path="/contractors/salary-heads" element={<SalaryHeadMaster />} />
+                        <Route path="/contractors/salary-structure" element={<ContractorSalaryStructure />} />
+                        <Route path="/contractors/salary-sheets" element={<SalarySheet />} />
+                        <Route path="/contractors/advances" element={<AdvanceMemo />} />
+                        <Route path="/contractors/vouchers" element={<VoucherPayment />} />
+                    </Route>
 
                     {/* Stores */}
-                    <Route path="/stores/warehouses" element={<Warehouses />} />
-                    <Route path="/stores/openings" element={<WarehouseOpenings />} />
-                    <Route path="/stores/dispatch" element={<DispatchSRV />} />
-                    <Route path="/stores/transfers" element={<WarehouseTransfers />} />
-                    <Route path="/stores/receipts" element={<WarehouseReceipts />} />
+                    <Route element={<ProtectedRoute requiredPermission="Stores.view" />}>
+                        <Route path="/stores/warehouses" element={<Warehouses />} />
+                        <Route path="/stores/openings" element={<WarehouseOpenings />} />
+                        <Route path="/stores/dispatch" element={<DispatchSRV />} />
+                        <Route path="/stores/transfers" element={<WarehouseTransfers />} />
+                        <Route path="/stores/receipts" element={<WarehouseReceipts />} />
+                    </Route>
 
                     {/* Assets */}
-                    <Route path="/assets/register" element={<AssetRegister />} />
-                    <Route path="/assets/allocations" element={<AssetAllocations />} />
-                    <Route path="/assets/sales" element={<AssetSales />} />
-                    <Route path="/assets/depreciation" element={<AssetDepreciation />} />
+                    <Route element={<ProtectedRoute requiredPermission="Assets.view" />}>
+                        <Route path="/assets/register" element={<AssetRegister />} />
+                        <Route path="/assets/allocations" element={<AssetAllocations />} />
+                        <Route path="/assets/sales" element={<AssetSales />} />
+                        <Route path="/assets/depreciation" element={<AssetDepreciation />} />
+                    </Route>
+
+                    {/* Admin Management */}
+                    <Route element={<ProtectedRoute requiredPermission="User Management.view" />}>
+                        <Route path="/admin/users" element={<UserManagement />} />
+                        <Route path="/admin/roles" element={<RoleManagement />} />
+                    </Route>
                 </Route>
             </Route>
         </Routes>

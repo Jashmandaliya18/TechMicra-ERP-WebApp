@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('transporter_name')->nullable(); // Will link to Transport Master later
             $table->string('vehicle_no')->nullable();
             $table->string('driver_name')->nullable();
-            $table->timestamps();
+            $table->dateTime('created_at')->nullable();
+            $table->dateTime('updated_at')->nullable();
         });
     }
 
