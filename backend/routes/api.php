@@ -162,6 +162,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 Route::middleware(['auth:sanctum', 'check.permission:User Management.view'])->group(function () {
     Route::get('/admin/users', [App\Http\Controllers\ManagementController::class, 'getUsers']);
     Route::post('/admin/users', [App\Http\Controllers\ManagementController::class, 'createUser']);
+    Route::delete('/admin/users/{user}', [App\Http\Controllers\ManagementController::class, 'deleteUser']);
     Route::get('/admin/roles', [App\Http\Controllers\ManagementController::class, 'getRoles']);
     Route::post('/admin/roles/{role}/permissions', [App\Http\Controllers\ManagementController::class, 'updateRolePermissions']);
 });

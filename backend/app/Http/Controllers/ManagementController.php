@@ -34,6 +34,15 @@ class ManagementController extends Controller
         return response()->json($user->load('roles'));
     }
 
+    public function deleteUser(User $user)
+    {
+        if ($user->hasRole('Super Admin')) {
+            return response()->json(['message' => 'Cannot delete Super Admin'], 403);
+        }
+        $user->delete();
+        return response()->json(['message' => 'User deleted successfully']);
+    }
+
     public function getRoles()
     {
         return response()->json(Role::with('permissions')->get());
@@ -41,6 +50,10 @@ class ManagementController extends Controller
 
     public function updateRolePermissions(Request $request, Role $role)
     {
+        if ($role->name === 'Super Admin') {
+            return response()->json(['message' => 'Cannot modify Super Admin permissions'], 403);
+        }
+
         $request->validate([
             'permissions' => 'required|array'
         ]);

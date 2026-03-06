@@ -112,4 +112,11 @@ export const createAssetSale = (data) => api.post("/asset-sales", data);
 export const getAssetDepreciations = () => api.get("/asset-depreciations");
 export const createAssetDepreciation = (data) => api.post("/asset-depreciations", data);
 
+// Admin Management
+export const getUsers = () => api.get("/admin/users");
+export const createUser = (data) => api.post("/admin/users", data);
+export const deleteUser = (id) => api.delete(`/admin/users/${id}`);
+export const getRoles = () => api.get("/admin/roles");
+export const updateRolePermissions = (id, data) => api.post(`/admin/roles/${id}/permissions`, data);
+
 export default api;
