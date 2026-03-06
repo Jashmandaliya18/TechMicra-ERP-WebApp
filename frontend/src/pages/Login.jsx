@@ -17,7 +17,11 @@ export default function Login() {
             await login(email, password);
             navigate("/");
         } catch (err) {
-            setError(err.response?.data?.message || "Invalid credentials. Please try again.");
+            if (!err.response) {
+                setError("Server is unreachable. Please make sure the backend API is running (php artisan serve).");
+            } else {
+                setError(err.response?.data?.message || "Invalid credentials. Please try again.");
+            }
         }
     };
 

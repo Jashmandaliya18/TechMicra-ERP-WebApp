@@ -25,7 +25,7 @@ class RoleAndAdminSeeder extends Seeder
             ['email' => 'admin@techmicra.com'],
             [
                 'name' => 'Super Admin',
-                'password' => 'admin123',
+                'password' => Hash::make('admin123'),
             ]
         );
 
