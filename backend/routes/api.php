@@ -157,4 +157,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('salary-structures', \App\Http\Controllers\SalaryStructureController::class);
     Route::apiResource('payroll', \App\Http\Controllers\PayrollController::class);
     Route::apiResource('employee-advances', \App\Http\Controllers\EmployeeAdvanceController::class);
+
+    // =========================================
+    // CONTRACTORS MODULE
+    // =========================================
+    Route::apiResource('contractor-employees', \App\Http\Controllers\ContractorEmployeeController::class);
+    Route::apiResource('contractor-salary-heads', \App\Http\Controllers\ContractorSalaryHeadController::class);
+    Route::apiResource('contractor-salary-structures', \App\Http\Controllers\ContractorSalaryStructureController::class);
+    Route::apiResource('contractor-salary-sheets', \App\Http\Controllers\ContractorSalarySheetController::class);
+    Route::apiResource('contractor-advances', \App\Http\Controllers\ContractorAdvanceController::class);
+    Route::apiResource('contractor-vouchers', \App\Http\Controllers\VoucherPaymentController::class);
 });

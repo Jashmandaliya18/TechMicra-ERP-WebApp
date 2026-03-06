@@ -77,8 +77,12 @@ import Payroll from "../pages/modules/hr/Payroll";
 import EmployeeAdvances from "../pages/modules/hr/EmployeeAdvances";
 
 // Contractors
-import ContractorEmployees from "../pages/modules/ContractorEmployees";
-import ContractorSalary from "../pages/modules/ContractorSalary";
+import ContractorStaff from "../pages/contractors/ContractorStaff";
+import SalaryHeadMaster from "../pages/contractors/SalaryHeadMaster";
+import ContractorSalaryStructure from "../pages/contractors/SalaryStructure";
+import SalarySheet from "../pages/contractors/SalarySheet";
+import AdvanceMemo from "../pages/contractors/AdvanceMemo";
+import VoucherPayment from "../pages/contractors/VoucherPayment";
 
 // Stores
 import Warehouses from "../pages/modules/Warehouses";
@@ -177,8 +181,12 @@ function AppRoutes() {
                     <Route path="/hr/advances" element={<EmployeeAdvances />} />
 
                     {/* Contractors */}
-                    <Route path="/contractors/employees" element={<ContractorEmployees />} />
-                    <Route path="/contractors/salary" element={<ContractorSalary />} />
+                    <Route path="/contractors/employees" element={<ContractorStaff />} />
+                    <Route path="/contractors/salary-heads" element={<SalaryHeadMaster />} />
+                    <Route path="/contractors/salary-structure" element={<ContractorSalaryStructure />} />
+                    <Route path="/contractors/salary-sheets" element={<SalarySheet />} />
+                    <Route path="/contractors/advances" element={<AdvanceMemo />} />
+                    <Route path="/contractors/vouchers" element={<VoucherPayment />} />
 
                     {/* Stores */}
                     <Route path="/stores/warehouses" element={<Warehouses />} />
