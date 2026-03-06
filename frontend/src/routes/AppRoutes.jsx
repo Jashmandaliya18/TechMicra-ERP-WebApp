@@ -70,10 +70,11 @@ import BankRecPage from "../pages/modules/BankRecPage";
 import CreditCardStatementPage from "../pages/modules/CreditCardStatementPage";
 
 // HR
-import Employees from "../pages/modules/Employees";
-import SalaryStructure from "../pages/modules/SalaryStructure";
-import MonthlySalarySheets from "../pages/modules/MonthlySalarySheets";
-import AdvancesLoans from "../pages/modules/AdvancesLoans";
+import Employees from "../pages/modules/hr/Employees";
+import SalaryHeads from "../pages/modules/hr/SalaryHeads";
+import SalaryStructures from "../pages/modules/hr/SalaryStructures";
+import Payroll from "../pages/modules/hr/Payroll";
+import EmployeeAdvances from "../pages/modules/hr/EmployeeAdvances";
 
 // Contractors
 import ContractorEmployees from "../pages/modules/ContractorEmployees";
@@ -169,9 +170,10 @@ function AppRoutes() {
 
                     {/* HR */}
                     <Route path="/hr/employees" element={<Employees />} />
-                    <Route path="/hr/salary" element={<SalaryStructure />} />
-                    <Route path="/hr/sheets" element={<MonthlySalarySheets />} />
-                    <Route path="/hr/advances" element={<AdvancesLoans />} />
+                    <Route path="/hr/salary-heads" element={<SalaryHeads />} />
+                    <Route path="/hr/salary" element={<SalaryStructures />} />
+                    <Route path="/hr/sheets" element={<Payroll />} />
+                    <Route path="/hr/advances" element={<EmployeeAdvances />} />
 
                     {/* Contractors */}
                     <Route path="/contractors/employees" element={<ContractorEmployees />} />

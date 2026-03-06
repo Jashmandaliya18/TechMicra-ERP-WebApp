@@ -137,4 +137,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('gst-journals', GstJournalVoucherController::class);
     Route::apiResource('bank-reconciliation', BankReconciliationController::class);
     Route::apiResource('credit-card-statements', CreditCardStatementController::class);
+    // =========================================
+    // HR MODULE
+    // =========================================
+    Route::apiResource('employees', \App\Http\Controllers\EmployeeController::class);
+    Route::apiResource('salary-heads', \App\Http\Controllers\SalaryHeadController::class);
+    Route::apiResource('salary-structures', \App\Http\Controllers\SalaryStructureController::class);
+    Route::apiResource('payroll', \App\Http\Controllers\PayrollController::class);
+    Route::apiResource('employee-advances', \App\Http\Controllers\EmployeeAdvanceController::class);
 });

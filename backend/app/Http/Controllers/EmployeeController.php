@@ -7,43 +7,55 @@ use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return response()->json(Employee::orderBy('name')->get());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'employee_code' => 'required|string|unique:employees,employee_code',
+            'name' => 'required|string|max:255',
+            'department' => 'nullable|string',
+            'designation' => 'nullable|string',
+            'mobile' => 'nullable|string',
+            'date_of_joining' => 'required|date',
+            'basic_salary' => 'required|numeric|min:0',
+            'bank_details' => 'nullable|string',
+            'status' => 'required|in:Active,On-Leave,Terminated'
+        ]);
+
+        $employee = Employee::create($validated);
+        return response()->json($employee, 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Employee $employee)
     {
-        //
+        return response()->json($employee->load(['salaryStructure', 'payrollRecords', 'advanceRecords']));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Employee $employee)
     {
-        //
+        $validated = $request->validate([
+            'employee_code' => 'required|string|unique:employees,employee_code,' . $employee->id,
+            'name' => 'required|string|max:255',
+            'department' => 'nullable|string',
+            'designation' => 'nullable|string',
+            'mobile' => 'nullable|string',
+            'date_of_joining' => 'required|date',
+            'basic_salary' => 'required|numeric|min:0',
+            'bank_details' => 'nullable|string',
+            'status' => 'required|in:Active,On-Leave,Terminated'
+        ]);
+
+        $employee->update($validated);
+        return response()->json($employee);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Employee $employee)
     {
-        //
+        $employee->delete();
+        return response()->json(null, 204);
     }
 }
