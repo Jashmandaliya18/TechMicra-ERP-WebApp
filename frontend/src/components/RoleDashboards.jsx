@@ -32,7 +32,7 @@ export const SalesDashboard = ({ stats, formatCurrency }) => {
     if (!stats) return null;
 
     return (
-        <Box sx={{ display: 'grid', gridTemplateColumns: '__REPLACE_ME__', gap: 3 }}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: 'repeat(5, 1fr)' }, gap: 3 }}>
             <Box><StatCard title="New Inquiries" value={stats.newInquiries} icon={<Assignment />} color="#1565c0" /></Box>
             <Box><StatCard title="Pending Quotations" value={stats.pendingQuotations} icon={<RequestQuote />} color="#7b1fa2" /></Box>
             <Box><StatCard title="Orders Confirmed" value={stats.ordersConfirmed} icon={<CheckCircle />} color="#2e7d32" /></Box>
