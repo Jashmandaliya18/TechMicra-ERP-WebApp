@@ -81,7 +81,7 @@ export default function Dashboard() {
             case "Maintenance Manager": return <MaintenanceDashboard stats={stats} formatCurrency={formatCurrency} />;
             case "Contractor Manager": return <ContractorDashboard stats={stats} formatCurrency={formatCurrency} />;
             case "Super Admin": return (
-                <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: 'repeat(5, 1fr)' }, gap: 3 }}>
+                <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 3 }}>
                     {/* Super Admin Widgets based on requirements */}
                     <Box><StatCard title="Total Sales" value={formatCurrency(stats.totalSales)} icon={<TrendingUp />} color="#1565c0" /></Box>
                     <Box><StatCard title="Pending Orders" value={stats.pendingOrders} icon={<ShoppingCart />} color="#e65100" /></Box>
