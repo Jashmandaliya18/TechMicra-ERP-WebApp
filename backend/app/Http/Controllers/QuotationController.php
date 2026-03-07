@@ -109,8 +109,17 @@ class QuotationController extends Controller
 
     public function destroy(Quotation $quotation)
     {
-        $quotation->items()->delete();
-        $quotation->delete();
-        return response()->json(['message' => 'Quotation deleted successfully.']);
+        try {
+            $quotation->items()->delete();
+            $quotation->delete();
+            return response()->json(['message' => 'Quotation deleted successfully.']);
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->getCode() == 23000 || $e->getCode() == 1451) {
+                return response()->json(['error' => 'Cannot delete quotation because it has associated records.'], 400);
+            }
+            return response()->json(['error' => 'An error occurred while deleting the quotation.'], 500);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An unexpected error occurred.'], 500);
+        }
     }
 }

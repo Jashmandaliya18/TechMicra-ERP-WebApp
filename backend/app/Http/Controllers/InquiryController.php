@@ -136,8 +136,17 @@ class InquiryController extends Controller
 
     public function destroy(Inquiry $inquiry)
     {
-        $inquiry->items()->delete();
-        $inquiry->delete();
-        return response()->json(['message' => 'Inquiry deleted successfully.']);
+        try {
+            $inquiry->items()->delete();
+            $inquiry->delete();
+            return response()->json(['message' => 'Inquiry deleted successfully.']);
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->getCode() == 23000 || $e->getCode() == 1451) {
+                return response()->json(['error' => 'Cannot delete inquiry because it has associated records (e.g., quotations).'], 400);
+            }
+            return response()->json(['error' => 'An error occurred while deleting the inquiry.'], 500);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An unexpected error occurred.'], 500);
+        }
     }
 }

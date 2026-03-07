@@ -71,15 +71,15 @@ export default function Dashboard() {
 
         switch (role) {
             case "Sales Manager": return <SalesDashboard stats={stats} formatCurrency={formatCurrency} />;
-            case "HR Manager": return <HRDashboard />;
-            case "Production Manager": return <ProductionDashboard />;
-            case "Purchase Manager": return <PurchaseDashboard />;
-            case "Logistics Manager": return <LogisticsDashboard />;
-            case "Quality Manager": return <QualityDashboard />;
-            case "Finance Manager": return <FinanceDashboard />;
-            case "Store Manager": return <StoreDashboard />;
-            case "Maintenance Manager": return <MaintenanceDashboard />;
-            case "Contractor Manager": return <ContractorDashboard />;
+            case "HR Manager": return <HRDashboard stats={stats} formatCurrency={formatCurrency} />;
+            case "Production Manager": return <ProductionDashboard stats={stats} formatCurrency={formatCurrency} />;
+            case "Purchase Manager": return <PurchaseDashboard stats={stats} formatCurrency={formatCurrency} />;
+            case "Logistics Manager": return <LogisticsDashboard stats={stats} formatCurrency={formatCurrency} />;
+            case "Quality Manager": return <QualityDashboard stats={stats} formatCurrency={formatCurrency} />;
+            case "Finance Manager": return <FinanceDashboard stats={stats} formatCurrency={formatCurrency} />;
+            case "Store Manager": return <StoreDashboard stats={stats} formatCurrency={formatCurrency} />;
+            case "Maintenance Manager": return <MaintenanceDashboard stats={stats} formatCurrency={formatCurrency} />;
+            case "Contractor Manager": return <ContractorDashboard stats={stats} formatCurrency={formatCurrency} />;
             case "Super Admin": return (
                 <Grid container spacing={3}>
                     {/* Super Admin Widgets based on requirements */}

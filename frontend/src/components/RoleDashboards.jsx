@@ -42,87 +42,117 @@ export const SalesDashboard = ({ stats, formatCurrency }) => {
     );
 };
 
-export const HRDashboard = () => (
-    <Grid container spacing={3}>
-        <Grid item xs={12} sm={6} md={4}><StatCard title="Total Employees" value="0" icon={<People />} color="#ad1457" /></Grid>
-        <Grid item xs={12} sm={6} md={4}><StatCard title="Payroll This Month" value="₹0" icon={<AccountBalance />} color="#1565c0" /></Grid>
-        <Grid item xs={12} sm={6} md={4}><StatCard title="Employee Advances" value="₹0" icon={<TrendingUp />} color="#e65100" /></Grid>
-    </Grid>
-);
+export const HRDashboard = ({ stats, formatCurrency }) => {
+    if (!stats) return null;
+    return (
+        <Grid container spacing={3}>
+            <Grid item xs={12} sm={6} md={4}><StatCard title="Total Employees" value={stats.totalEmployees || 0} icon={<People />} color="#ad1457" /></Grid>
+            <Grid item xs={12} sm={6} md={4}><StatCard title="Payroll This Month" value={formatCurrency ? formatCurrency(0) : "₹0"} icon={<AccountBalance />} color="#1565c0" /></Grid>
+            <Grid item xs={12} sm={6} md={4}><StatCard title="Employee Advances" value={formatCurrency ? formatCurrency(0) : "₹0"} icon={<TrendingUp />} color="#e65100" /></Grid>
+        </Grid>
+    );
+};
 
-export const ProductionDashboard = () => (
-    <Grid container spacing={3}>
-        <Grid item xs={12} sm={6} md={3}><StatCard title="Active Route Cards" value="0" icon={<VerifiedUser />} color="#e65100" /></Grid>
-        <Grid item xs={12} sm={6} md={3}><StatCard title="Production Today" value="0 units" icon={<CheckCircle />} color="#2e7d32" /></Grid>
-        <Grid item xs={12} sm={6} md={3}><StatCard title="Machine Utilization" value="0%" icon={<Build />} color="#1565c0" /></Grid>
-        <Grid item xs={12} sm={6} md={3}><StatCard title="Rejected Quantity" value="0" icon={<Warning />} color="#d32f2f" /></Grid>
-    </Grid>
-);
+export const ProductionDashboard = ({ stats }) => {
+    if (!stats) return null;
+    return (
+        <Grid container spacing={3}>
+            <Grid item xs={12} sm={6} md={3}><StatCard title="Active Route Cards" value={stats.runningBatches || 0} icon={<VerifiedUser />} color="#e65100" /></Grid>
+            <Grid item xs={12} sm={6} md={3}><StatCard title="Production Today" value="0 units" icon={<CheckCircle />} color="#2e7d32" /></Grid>
+            <Grid item xs={12} sm={6} md={3}><StatCard title="Machine Utilization" value="0%" icon={<Build />} color="#1565c0" /></Grid>
+            <Grid item xs={12} sm={6} md={3}><StatCard title="Rejected Quantity" value="0" icon={<Warning />} color="#d32f2f" /></Grid>
+        </Grid>
+    );
+};
 
-export const PurchaseDashboard = () => (
-    <Grid container spacing={3}>
-        <Grid item xs={12} sm={6} md={3}><StatCard title="Material Indents Pending" value="0" icon={<Assignment />} color="#7b1fa2" /></Grid>
-        <Grid item xs={12} sm={6} md={3}><StatCard title="Pending Purchase Orders" value="0" icon={<RequestQuote />} color="#1565c0" /></Grid>
-        <Grid item xs={12} sm={6} md={3}><StatCard title="GRN Pending" value="0" icon={<Warehouse />} color="#e65100" /></Grid>
-        <Grid item xs={12} sm={6} md={3}><StatCard title="Vendor Deliveries" value="0" icon={<LocalShipping />} color="#2e7d32" /></Grid>
-    </Grid>
-);
+export const PurchaseDashboard = ({ stats }) => {
+    if (!stats) return null;
+    return (
+        <Grid container spacing={3}>
+            <Grid item xs={12} sm={6} md={3}><StatCard title="Material Indents Pending" value="0" icon={<Assignment />} color="#7b1fa2" /></Grid>
+            <Grid item xs={12} sm={6} md={3}><StatCard title="Pending Purchase Orders" value={stats.pendingPOs || 0} icon={<RequestQuote />} color="#1565c0" /></Grid>
+            <Grid item xs={12} sm={6} md={3}><StatCard title="GRN Pending" value="0" icon={<Warehouse />} color="#e65100" /></Grid>
+            <Grid item xs={12} sm={6} md={3}><StatCard title="Vendor Deliveries" value="0" icon={<LocalShipping />} color="#2e7d32" /></Grid>
+        </Grid>
+    );
+};
 
-export const LogisticsDashboard = () => (
-    <Grid container spacing={3}>
-        <Grid item xs={12} sm={6} md={4}><StatCard title="Transport Orders" value="0" icon={<LocalShipping />} color="#00838f" /></Grid>
-        <Grid item xs={12} sm={6} md={4}><StatCard title="Pending Dispatch" value="0" icon={<Assignment />} color="#e65100" /></Grid>
-        <Grid item xs={12} sm={6} md={4}><StatCard title="Freight Bills" value="0" icon={<RequestQuote />} color="#7b1fa2" /></Grid>
-    </Grid>
-);
+export const LogisticsDashboard = ({ stats }) => {
+    if (!stats) return null;
+    return (
+        <Grid container spacing={3}>
+            <Grid item xs={12} sm={6} md={4}><StatCard title="Transport Orders" value="0" icon={<LocalShipping />} color="#00838f" /></Grid>
+            <Grid item xs={12} sm={6} md={4}><StatCard title="Pending Dispatch" value={stats.dispatchPending || 0} icon={<Assignment />} color="#e65100" /></Grid>
+            <Grid item xs={12} sm={6} md={4}><StatCard title="Freight Bills" value="0" icon={<RequestQuote />} color="#7b1fa2" /></Grid>
+        </Grid>
+    );
+};
 
-export const QualityDashboard = () => (
-    <Grid container spacing={3}>
-        <Grid item xs={12} sm={6} md={4}><StatCard title="Incoming Quality Checks" value="0" icon={<VerifiedUser />} color="#2e7d32" /></Grid>
-        <Grid item xs={12} sm={6} md={4}><StatCard title="Process Quality Checks" value="0" icon={<Build />} color="#1565c0" /></Grid>
-        <Grid item xs={12} sm={6} md={4}><StatCard title="Rejected Materials" value="0" icon={<Warning />} color="#d32f2f" /></Grid>
-    </Grid>
-);
+export const QualityDashboard = ({ stats }) => {
+    if (!stats) return null;
+    return (
+        <Grid container spacing={3}>
+            <Grid item xs={12} sm={6} md={4}><StatCard title="Incoming Quality Checks" value="0" icon={<VerifiedUser />} color="#2e7d32" /></Grid>
+            <Grid item xs={12} sm={6} md={4}><StatCard title="Process Quality Checks" value="0" icon={<Build />} color="#1565c0" /></Grid>
+            <Grid item xs={12} sm={6} md={4}><StatCard title="Rejected Materials" value="0" icon={<Warning />} color="#d32f2f" /></Grid>
+        </Grid>
+    );
+};
 
-export const FinanceDashboard = () => (
-    <Grid container spacing={3}>
-        <Grid item xs={12} sm={6} md={3}><StatCard title="Accounts Receivable" value="₹0" icon={<TrendingUp />} color="#2e7d32" /></Grid>
-        <Grid item xs={12} sm={6} md={3}><StatCard title="Accounts Payable" value="₹0" icon={<RequestQuote />} color="#d32f2f" /></Grid>
-        <Grid item xs={12} sm={6} md={3}><StatCard title="Bank Balance" value="₹0" icon={<AccountBalance />} color="#1565c0" /></Grid>
-        <Grid item xs={12} sm={6} md={3}><StatCard title="GST Liability" value="₹0" icon={<CreditCard />} color="#e65100" /></Grid>
-    </Grid>
-);
+export const FinanceDashboard = ({ stats, formatCurrency }) => {
+    if (!stats) return null;
+    return (
+        <Grid container spacing={3}>
+            <Grid item xs={12} sm={6} md={3}><StatCard title="Accounts Receivable" value={formatCurrency ? formatCurrency(0) : "₹0"} icon={<TrendingUp />} color="#2e7d32" /></Grid>
+            <Grid item xs={12} sm={6} md={3}><StatCard title="Accounts Payable" value={formatCurrency ? formatCurrency(stats.pendingPayments || 0) : "₹0"} icon={<RequestQuote />} color="#d32f2f" /></Grid>
+            <Grid item xs={12} sm={6} md={3}><StatCard title="Bank Balance" value={formatCurrency ? formatCurrency(stats.cashFlow || 0) : "₹0"} icon={<AccountBalance />} color="#1565c0" /></Grid>
+            <Grid item xs={12} sm={6} md={3}><StatCard title="GST Liability" value={formatCurrency ? formatCurrency(0) : "₹0"} icon={<CreditCard />} color="#e65100" /></Grid>
+        </Grid>
+    );
+};
 
-export const StoreDashboard = () => (
-    <Grid container spacing={3}>
-        <Grid item xs={12} sm={6} md={4}><StatCard title="Low Stock" value="0" icon={<Warning />} color="#d32f2f" /></Grid>
-        <Grid item xs={12} sm={6} md={4}><StatCard title="Incoming Materials" value="0" icon={<Warehouse />} color="#2e7d32" /></Grid>
-        <Grid item xs={12} sm={6} md={4}><StatCard title="Warehouse Transfers" value="0" icon={<Assignment />} color="#1565c0" /></Grid>
-    </Grid>
-);
+export const StoreDashboard = ({ stats }) => {
+    if (!stats) return null;
+    return (
+        <Grid container spacing={3}>
+            <Grid item xs={12} sm={6} md={4}><StatCard title="Low Stock" value={stats.lowStockItems || 0} icon={<Warning />} color="#d32f2f" /></Grid>
+            <Grid item xs={12} sm={6} md={4}><StatCard title="Incoming Materials" value="0" icon={<Warehouse />} color="#2e7d32" /></Grid>
+            <Grid item xs={12} sm={6} md={4}><StatCard title="Warehouse Transfers" value="0" icon={<Assignment />} color="#1565c0" /></Grid>
+        </Grid>
+    );
+};
 
-export const MaintenanceDashboard = () => (
-    <Grid container spacing={3}>
-        <Grid item xs={12} sm={6} md={3}><StatCard title="Pending Repairs" value="0" icon={<Build />} color="#d32f2f" /></Grid>
-        <Grid item xs={12} sm={6} md={3}><StatCard title="Calibration Due" value="0" icon={<VerifiedUser />} color="#e65100" /></Grid>
-        <Grid item xs={12} sm={6} md={3}><StatCard title="Scheduled Today" value="0" icon={<Assignment />} color="#1565c0" /></Grid>
-        <Grid item xs={12} sm={6} md={3}><StatCard title="Machinery Uptime" value="100%" icon={<CheckCircle />} color="#2e7d32" /></Grid>
-    </Grid>
-);
+export const MaintenanceDashboard = ({ stats }) => {
+    if (!stats) return null;
+    return (
+        <Grid container spacing={3}>
+            <Grid item xs={12} sm={6} md={3}><StatCard title="Pending Repairs" value="0" icon={<Build />} color="#d32f2f" /></Grid>
+            <Grid item xs={12} sm={6} md={3}><StatCard title="Calibration Due" value="0" icon={<VerifiedUser />} color="#e65100" /></Grid>
+            <Grid item xs={12} sm={6} md={3}><StatCard title="Scheduled Today" value="0" icon={<Assignment />} color="#1565c0" /></Grid>
+            <Grid item xs={12} sm={6} md={3}><StatCard title="Machinery Uptime" value="100%" icon={<CheckCircle />} color="#2e7d32" /></Grid>
+        </Grid>
+    );
+};
 
-export const AssetDashboard = () => (
-    <Grid container spacing={3}>
-        <Grid item xs={12} sm={6} md={3}><StatCard title="Total Assets" value="0" icon={<Business />} color="#37474f" /></Grid>
-        <Grid item xs={12} sm={6} md={3}><StatCard title="Allocated" value="0" icon={<Assignment />} color="#1565c0" /></Grid>
-        <Grid item xs={12} sm={6} md={3}><StatCard title="Depreciation (YTD)" value="₹0" icon={<TrendingUp />} color="#e65100" /></Grid>
-        <Grid item xs={12} sm={6} md={3}><StatCard title="Maintenance Due" value="0" icon={<Build />} color="#d32f2f" /></Grid>
-    </Grid>
-);
+export const AssetDashboard = ({ stats, formatCurrency }) => {
+    if (!stats) return null;
+    return (
+        <Grid container spacing={3}>
+            <Grid item xs={12} sm={6} md={3}><StatCard title="Total Assets" value="0" icon={<Business />} color="#37474f" /></Grid>
+            <Grid item xs={12} sm={6} md={3}><StatCard title="Allocated" value="0" icon={<Assignment />} color="#1565c0" /></Grid>
+            <Grid item xs={12} sm={6} md={3}><StatCard title="Depreciation (YTD)" value={formatCurrency ? formatCurrency(0) : "₹0"} icon={<TrendingUp />} color="#e65100" /></Grid>
+            <Grid item xs={12} sm={6} md={3}><StatCard title="Maintenance Due" value="0" icon={<Build />} color="#d32f2f" /></Grid>
+        </Grid>
+    );
+};
 
-export const ContractorDashboard = () => (
-    <Grid container spacing={3}>
-        <Grid item xs={12} sm={6} md={4}><StatCard title="Total Staff" value="0" icon={<People />} color="#ad1457" /></Grid>
-        <Grid item xs={12} sm={6} md={4}><StatCard title="Pending Payments" value="₹0" icon={<RequestQuote />} color="#e65100" /></Grid>
-        <Grid item xs={12} sm={6} md={4}><StatCard title="Daily Attendance" value="0%" icon={<CheckCircle />} color="#2e7d32" /></Grid>
-    </Grid>
-);
+export const ContractorDashboard = ({ stats, formatCurrency }) => {
+    if (!stats) return null;
+    return (
+        <Grid container spacing={3}>
+            <Grid item xs={12} sm={6} md={4}><StatCard title="Total Staff" value="0" icon={<People />} color="#ad1457" /></Grid>
+            <Grid item xs={12} sm={6} md={4}><StatCard title="Pending Payments" value={formatCurrency ? formatCurrency(0) : "₹0"} icon={<RequestQuote />} color="#e65100" /></Grid>
+            <Grid item xs={12} sm={6} md={4}><StatCard title="Daily Attendance" value="0%" icon={<CheckCircle />} color="#2e7d32" /></Grid>
+        </Grid>
+    );
+};

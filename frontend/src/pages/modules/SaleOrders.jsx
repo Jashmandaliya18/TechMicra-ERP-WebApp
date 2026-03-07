@@ -63,8 +63,8 @@ export default function SaleOrders() {
 
     const handleDelete = async (id) => {
         if (!window.confirm("Delete this Sale Order? This will release the blocked inventory.")) return;
-        try { await deleteSaleOrder(id); load(); }
-        catch { setError("Delete failed."); }
+        try { await deleteSaleOrder(id); load(); setError(""); }
+        catch (e) { setError(e.response?.data?.error || e.response?.data?.message || "Delete failed."); }
     };
 
     const orderTotal = form.items.reduce((sum, it) => sum + (parseFloat(it.quantity) || 0) * (parseFloat(it.rate) || 0), 0);

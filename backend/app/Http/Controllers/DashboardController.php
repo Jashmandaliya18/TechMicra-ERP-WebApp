@@ -45,7 +45,13 @@ class DashboardController extends Controller
             'pendingQuotations' => $pendingQuotations,
             'ordersConfirmed' => $ordersConfirmed,
             'invoicesGenerated' => $invoicesGenerated,
-            'overduePayments' => $overduePayments
+            'overduePayments' => $overduePayments,
+
+            // Purchase Role
+            'openIndents' => Schema::hasTable('material_indents') ? DB::table('material_indents')->whereIn('status', ['Pending', 'Open'])->count() : 0,
+            'pendingPurchaseOrders' => $pendingPOs,
+            'todaysDeliveries' => Schema::hasTable('goods_receipt_notes') ? DB::table('goods_receipt_notes')->whereDate('created_at', now()->toDateString())->count() : 0,
+            'duePaymentsAmount' => Schema::hasTable('purchase_billbooks') ? DB::table('purchase_billbooks')->sum('total_amount') : 0
         ]);
     }
 }

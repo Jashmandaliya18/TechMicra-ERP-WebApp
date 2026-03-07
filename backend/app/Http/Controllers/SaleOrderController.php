@@ -85,13 +85,22 @@ class SaleOrderController extends Controller
 
     public function destroy(SaleOrder $saleOrder)
     {
-        // Release blocked stock
-        foreach ($saleOrder->items as $item) {
-            Product::where('id', $item->product_id)
-                ->decrement('blocked_stock', $item->quantity);
+        try {
+            // Release blocked stock
+            foreach ($saleOrder->items as $item) {
+                Product::where('id', $item->product_id)
+                    ->decrement('blocked_stock', $item->quantity);
+            }
+            $saleOrder->items()->delete();
+            $saleOrder->delete();
+            return response()->json(['message' => 'Sale Order deleted successfully.']);
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->getCode() == 23000 || $e->getCode() == 1451) {
+                return response()->json(['error' => 'Cannot delete sale order as it has associated records (e.g., invoices).'], 400);
+            }
+            return response()->json(['error' => 'An error occurred while deleting the sale order.'], 500);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An unexpected error occurred.'], 500);
         }
-        $saleOrder->items()->delete();
-        $saleOrder->delete();
-        return response()->json(['message' => 'Sale Order deleted successfully.']);
     }
 }

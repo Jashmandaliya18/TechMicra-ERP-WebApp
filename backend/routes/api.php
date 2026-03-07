@@ -72,7 +72,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('sale-orders', SaleOrderController::class);
     Route::apiResource('dispatch-advice', DispatchAdviceController::class);
     Route::apiResource('invoices', InvoiceController::class);
-    // Route::apiResource('voucher-receipts', PaymentReceiptVoucherController::class);
+    Route::apiResource('voucher-receipts', PaymentReceiptVoucherController::class);
 
     // =========================================
     // PURCHASE MODULE

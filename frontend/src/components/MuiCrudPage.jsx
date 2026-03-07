@@ -33,7 +33,12 @@ export default function TailwindCrudPage({ title, endpoint, columns, fields }) {
             const res = await axios.get(endpoint);
             setData(res.data);
         } catch (error) {
-            showToast("Failed to fetch data", "error");
+            const errMsg = error.response?.data?.message || "";
+            if (errMsg.includes("Base table or view not found") || error.response?.status === 404) {
+                setData([]);
+            } else {
+                showToast("Failed to fetch data", "error");
+            }
         }
     };
 

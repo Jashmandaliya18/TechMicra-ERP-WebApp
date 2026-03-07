@@ -62,8 +62,8 @@ export default function Quotations() {
 
     const handleDelete = async (id) => {
         if (!window.confirm("Delete this quotation?")) return;
-        try { await deleteQuotation(id); load(); }
-        catch { setError("Delete failed."); }
+        try { await deleteQuotation(id); load(); setError(""); }
+        catch (e) { setError(e.response?.data?.error || e.response?.data?.message || "Delete failed."); }
     };
 
     const lineTotal = (item) => {

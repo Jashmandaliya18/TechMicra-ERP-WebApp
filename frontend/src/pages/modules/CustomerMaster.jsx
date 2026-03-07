@@ -41,8 +41,8 @@ export default function CustomerMaster() {
 
     const handleDelete = async (id) => {
         if (!window.confirm("Delete this customer?")) return;
-        try { await deleteCustomer(id); load(); }
-        catch { setError("Delete failed."); }
+        try { await deleteCustomer(id); load(); setError(""); }
+        catch (e) { setError(e.response?.data?.error || e.response?.data?.message || "Delete failed."); }
     };
 
     const field = (label, key, type = "text", props = {}) => (

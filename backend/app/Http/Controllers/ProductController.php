@@ -47,7 +47,16 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
-        $product->delete();
-        return response()->json(['message' => 'Product deleted successfully.']);
+        try {
+            $product->delete();
+            return response()->json(['message' => 'Product deleted successfully.']);
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->getCode() == 23000 || $e->getCode() == 1451) {
+                return response()->json(['error' => 'Cannot delete product because it is used in associated records (e.g., invoices, orders, or inquiries).'], 400);
+            }
+            return response()->json(['error' => 'An error occurred while deleting the product.'], 500);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An unexpected error occurred.'], 500);
+        }
     }
 }

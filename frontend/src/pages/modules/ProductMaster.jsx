@@ -41,8 +41,8 @@ export default function ProductMaster() {
 
     const handleDelete = async (id) => {
         if (!window.confirm("Delete this product?")) return;
-        try { await deleteProduct(id); load(); }
-        catch { setError("Delete failed."); }
+        try { await deleteProduct(id); load(); setError(""); }
+        catch (e) { setError(e.response?.data?.error || e.response?.data?.message || "Delete failed."); }
     };
 
     const field = (label, key, type = "text", props = {}) => (

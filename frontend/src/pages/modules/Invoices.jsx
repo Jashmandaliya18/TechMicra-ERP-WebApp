@@ -49,8 +49,8 @@ export default function Invoices() {
 
     const handleDelete = async (id) => {
         if (!window.confirm("Delete this invoice?")) return;
-        try { await deleteInvoice(id); load(); }
-        catch { setError("Delete failed."); }
+        try { await deleteInvoice(id); load(); setError(""); }
+        catch (e) { setError(e.response?.data?.error || e.response?.data?.message || "Delete failed."); }
     };
 
     const grandTotal = (parseFloat(form.taxable_value) || 0) + (parseFloat(form.gst_amount) || 0) + (parseFloat(form.round_off) || 0);

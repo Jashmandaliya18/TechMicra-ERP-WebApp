@@ -53,7 +53,16 @@ class CustomerController extends Controller
 
     public function destroy(Customer $customer)
     {
-        $customer->delete();
-        return response()->json(['message' => 'Customer deleted successfully.']);
+        try {
+            $customer->delete();
+            return response()->json(['message' => 'Customer deleted successfully.']);
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->getCode() == 23000 || $e->getCode() == 1451) {
+                return response()->json(['error' => 'Cannot delete customer as they have associated records (e.g., inquiries or orders).'], 400);
+            }
+            return response()->json(['error' => 'An error occurred while deleting the customer.'], 500);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An unexpected error occurred.'], 500);
+        }
     }
 }

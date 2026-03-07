@@ -37,26 +37,28 @@ class DummySalesSeeder extends Seeder
             ['unit_price' => 4500.00, 'current_stock' => 50]
         );
 
+        $user = \App\Models\User::first() ?? \App\Models\User::factory()->create();
+
         // 3. Create Dummy Inquiries
-        Inquiry::updateOrCreate(
+        $inq1 = Inquiry::updateOrCreate(
             ['inquiry_no' => 'INQ-001'],
-            ['customer_id' => $customer1->id, 'inquiry_date' => Carbon::now()->subDays(10), 'status' => 'Open']
+            ['customer_id' => $customer1->id, 'sales_person_id' => $user->id, 'inquiry_date' => Carbon::now()->subDays(10), 'status' => 'Open']
         );
 
-        Inquiry::updateOrCreate(
+        $inq2 = Inquiry::updateOrCreate(
             ['inquiry_no' => 'INQ-002'],
-            ['customer_id' => $customer2->id, 'inquiry_date' => Carbon::now()->subDays(5), 'status' => 'Closed']
+            ['customer_id' => $customer2->id, 'sales_person_id' => $user->id, 'inquiry_date' => Carbon::now()->subDays(5), 'status' => 'Closed']
         );
 
         // 4. Create Dummy Quotations
         Quotation::updateOrCreate(
-            ['quotation_no' => 'QT-001'],
-            ['customer_id' => $customer1->id, 'inquiry_id' => 1, 'quotation_date' => Carbon::now()->subDays(8), 'grand_total' => 45000.00]
+            ['quote_id' => 'QT-001'],
+            ['inquiry_id' => $inq1->id, 'valid_until' => Carbon::now()->addDays(8)]
         );
 
         Quotation::updateOrCreate(
-            ['quotation_no' => 'QT-002'],
-            ['customer_id' => $customer2->id, 'inquiry_id' => 2, 'quotation_date' => Carbon::now()->subDays(3), 'grand_total' => 125000.00]
+            ['quote_id' => 'QT-002'],
+            ['inquiry_id' => $inq2->id, 'valid_until' => Carbon::now()->addDays(3)]
         );
 
         // 5. Create Dummy Sale Orders

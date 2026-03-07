@@ -43,8 +43,13 @@ const IQC = () => {
             const res = await purchaseService.getAll('iqc-checks');
             setData(res.data);
         } catch (err) {
-            console.error('Failed to fetch IQC records', err);
-            setError('Failed to fetch IQC records');
+            const errMsg = err.response?.data?.message || "";
+            if (errMsg.includes("Base table or view not found") || err.response?.status === 404) {
+                setData([]);
+            } else {
+                console.error('Failed to fetch IQC records', err);
+                setError('Failed to fetch IQC records');
+            }
         } finally {
             setLoading(false);
         }

@@ -39,15 +39,17 @@ class PurchaseOrderController extends Controller
         $po = PurchaseOrder::create([
             'po_no' => $poNo,
             'vendor_name' => $validated['vendor_name'],
-            'vendor_id' => $validated['vendor_id'],
+            'vendor_id' => $validated['vendor_id'] ?? null,
             'po_date' => $validated['po_date'],
-            'valid_until' => $validated['valid_until'],
+            'valid_until' => $validated['valid_until'] ?? null,
             'status' => 'Pending',
             'total_amount' => $totalAmount,
         ]);
 
         foreach ($validated['items'] as $item) {
             $item['subtotal'] = $item['quantity'] * $item['rate'];
+            $item['product_id'] = $item['product_id'] ?? null;
+            $item['expected_delivery_date'] = $item['expected_delivery_date'] ?? null;
             $po->items()->create($item);
         }
 
@@ -74,8 +76,14 @@ class PurchaseOrderController extends Controller
         if (isset($validated['items'])) {
             $purchaseOrder->items()->delete();
             foreach ($validated['items'] as $item) {
+                $item['subtotal'] = ($item['quantity'] ?? 0) * ($item['rate'] ?? 0);
+                $item['product_id'] = $item['product_id'] ?? null;
+                $item['expected_delivery_date'] = $item['expected_delivery_date'] ?? null;
                 $purchaseOrder->items()->create($item);
             }
+            // Recalculate total amount for PO
+            $totalAmount = collect($validated['items'])->sum(fn($item) => ($item['quantity'] ?? 0) * ($item['rate'] ?? 0));
+            $purchaseOrder->update(['total_amount' => $totalAmount]);
         }
 
         return response()->json($purchaseOrder->load(['vendor', 'items.product']));

@@ -71,8 +71,8 @@ export default function SalesInquiries() {
 
     const handleDelete = async (id) => {
         if (!window.confirm("Delete this inquiry?")) return;
-        try { await deleteInquiry(id); load(); }
-        catch { setError("Delete failed."); }
+        try { await deleteInquiry(id); load(); setError(""); }
+        catch (e) { setError(e.response?.data?.error || e.response?.data?.message || "Delete failed."); }
     };
 
     return (

@@ -80,7 +80,16 @@ class InvoiceController extends Controller
 
     public function destroy(Invoice $invoice)
     {
-        $invoice->delete();
-        return response()->json(['message' => 'Invoice deleted successfully.']);
+        try {
+            $invoice->delete();
+            return response()->json(['message' => 'Invoice deleted successfully.']);
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->getCode() == 23000 || $e->getCode() == 1451) {
+                return response()->json(['error' => 'Cannot delete invoice because it has associated records.'], 400);
+            }
+            return response()->json(['error' => 'An error occurred while deleting the invoice.'], 500);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An unexpected error occurred.'], 500);
+        }
     }
 }
