@@ -18,7 +18,14 @@ class DashboardController extends Controller
         $runningBatches = Schema::hasTable('routecards') ? DB::table('routecards')->count() : 0;
         $dispatchPending = Schema::hasTable('dispatch_advice') ? DB::table('dispatch_advice')->count() : 0;
         $totalEmployees = Schema::hasTable('employees') ? DB::table('employees')->count() : 0;
-        $pendingPayments = Schema::hasTable('vouchers') ? DB::table('vouchers')->where('status', 'Pending')->count() : 0;
+        // Finance & Payment Stats
+        $pendingPayments = Schema::hasTable('payment_receipt_vouchers') 
+            ? DB::table('payment_receipt_vouchers')->where('voucher_type', 'payment')->sum('amount') 
+            : 0;
+        
+        $cashFlow = Schema::hasTable('payment_receipt_vouchers')
+            ? DB::table('payment_receipt_vouchers')->where('voucher_type', 'receipt')->sum('amount')
+            : 0;
 
         // Sales Dashboard Specific Stats
         $newInquiries = Schema::hasTable('inquiries') ? DB::table('inquiries')->where('status', 'Open')->count() : 0;

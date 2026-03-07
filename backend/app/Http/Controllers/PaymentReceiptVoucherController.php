@@ -29,20 +29,20 @@ class PaymentReceiptVoucherController extends Controller
         return response()->json(PaymentReceiptVoucher::create($validated), 201);
     }
 
-    public function show(PaymentReceiptVoucher $paymentReceiptVoucher)
+    public function show(PaymentReceiptVoucher $payment_receipt)
     {
-        return response()->json($paymentReceiptVoucher);
+        return response()->json($payment_receipt);
     }
 
-    public function update(Request $request, PaymentReceiptVoucher $paymentReceiptVoucher)
+    public function update(Request $request, PaymentReceiptVoucher $payment_receipt)
     {
-        $paymentReceiptVoucher->update($request->all());
-        return response()->json($paymentReceiptVoucher);
+        $payment_receipt->update($request->all());
+        return response()->json($payment_receipt);
     }
 
-    public function destroy(PaymentReceiptVoucher $paymentReceiptVoucher)
+    public function destroy(PaymentReceiptVoucher $payment_receipt)
     {
-        $paymentReceiptVoucher->delete();
+        $payment_receipt->delete();
         return response()->json(['message' => 'Deleted successfully']);
     }
 }

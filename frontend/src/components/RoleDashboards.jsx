@@ -32,7 +32,7 @@ export const SalesDashboard = ({ stats, formatCurrency }) => {
     if (!stats) return null;
 
     return (
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: 'repeat(5, 1fr)' }, gap: 3 }}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 3 }}>
             <Box><StatCard title="New Inquiries" value={stats.newInquiries} icon={<Assignment />} color="#1565c0" /></Box>
             <Box><StatCard title="Pending Quotations" value={stats.pendingQuotations} icon={<RequestQuote />} color="#7b1fa2" /></Box>
             <Box><StatCard title="Orders Confirmed" value={stats.ordersConfirmed} icon={<CheckCircle />} color="#2e7d32" /></Box>
@@ -45,7 +45,7 @@ export const SalesDashboard = ({ stats, formatCurrency }) => {
 export const HRDashboard = ({ stats, formatCurrency }) => {
     if (!stats) return null;
     return (
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr', md: 'repeat(3, 1fr)' }, gap: 3 }}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 3 }}>
             <Box><StatCard title="Total Employees" value={stats.totalEmployees || 0} icon={<People />} color="#ad1457" /></Box>
             <Box><StatCard title="Payroll This Month" value={formatCurrency ? formatCurrency(0) : "₹0"} icon={<AccountBalance />} color="#1565c0" /></Box>
             <Box><StatCard title="Employee Advances" value={formatCurrency ? formatCurrency(0) : "₹0"} icon={<TrendingUp />} color="#e65100" /></Box>
@@ -56,7 +56,7 @@ export const HRDashboard = ({ stats, formatCurrency }) => {
 export const ProductionDashboard = ({ stats }) => {
     if (!stats) return null;
     return (
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: 'repeat(4, 1fr)' }, gap: 3 }}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 3 }}>
             <Box><StatCard title="Active Route Cards" value={stats.runningBatches || 0} icon={<VerifiedUser />} color="#e65100" /></Box>
             <Box><StatCard title="Production Today" value="0 units" icon={<CheckCircle />} color="#2e7d32" /></Box>
             <Box><StatCard title="Machine Utilization" value="0%" icon={<Build />} color="#1565c0" /></Box>
@@ -68,7 +68,7 @@ export const ProductionDashboard = ({ stats }) => {
 export const PurchaseDashboard = ({ stats }) => {
     if (!stats) return null;
     return (
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: 'repeat(4, 1fr)' }, gap: 3 }}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 3 }}>
             <Box><StatCard title="Material Indents Pending" value="0" icon={<Assignment />} color="#7b1fa2" /></Box>
             <Box><StatCard title="Pending Purchase Orders" value={stats.pendingPOs || 0} icon={<RequestQuote />} color="#1565c0" /></Box>
             <Box><StatCard title="GRN Pending" value="0" icon={<Warehouse />} color="#e65100" /></Box>
@@ -80,7 +80,7 @@ export const PurchaseDashboard = ({ stats }) => {
 export const LogisticsDashboard = ({ stats }) => {
     if (!stats) return null;
     return (
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr', md: 'repeat(3, 1fr)' }, gap: 3 }}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 3 }}>
             <Box><StatCard title="Transport Orders" value="0" icon={<LocalShipping />} color="#00838f" /></Box>
             <Box><StatCard title="Pending Dispatch" value={stats.dispatchPending || 0} icon={<Assignment />} color="#e65100" /></Box>
             <Box><StatCard title="Freight Bills" value="0" icon={<RequestQuote />} color="#7b1fa2" /></Box>
@@ -91,7 +91,7 @@ export const LogisticsDashboard = ({ stats }) => {
 export const QualityDashboard = ({ stats }) => {
     if (!stats) return null;
     return (
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr', md: 'repeat(3, 1fr)' }, gap: 3 }}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 3 }}>
             <Box><StatCard title="Incoming Quality Checks" value="0" icon={<VerifiedUser />} color="#2e7d32" /></Box>
             <Box><StatCard title="Process Quality Checks" value="0" icon={<Build />} color="#1565c0" /></Box>
             <Box><StatCard title="Rejected Materials" value="0" icon={<Warning />} color="#d32f2f" /></Box>
@@ -102,7 +102,7 @@ export const QualityDashboard = ({ stats }) => {
 export const FinanceDashboard = ({ stats, formatCurrency }) => {
     if (!stats) return null;
     return (
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: 'repeat(4, 1fr)' }, gap: 3 }}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 3 }}>
             <Box><StatCard title="Accounts Receivable" value={formatCurrency ? formatCurrency(0) : "₹0"} icon={<TrendingUp />} color="#2e7d32" /></Box>
             <Box><StatCard title="Accounts Payable" value={formatCurrency ? formatCurrency(stats.pendingPayments || 0) : "₹0"} icon={<RequestQuote />} color="#d32f2f" /></Box>
             <Box><StatCard title="Bank Balance" value={formatCurrency ? formatCurrency(stats.cashFlow || 0) : "₹0"} icon={<AccountBalance />} color="#1565c0" /></Box>
@@ -114,7 +114,7 @@ export const FinanceDashboard = ({ stats, formatCurrency }) => {
 export const StoreDashboard = ({ stats }) => {
     if (!stats) return null;
     return (
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr', md: 'repeat(3, 1fr)' }, gap: 3 }}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 3 }}>
             <Box><StatCard title="Low Stock" value={stats.lowStockItems || 0} icon={<Warning />} color="#d32f2f" /></Box>
             <Box><StatCard title="Incoming Materials" value="0" icon={<Warehouse />} color="#2e7d32" /></Box>
             <Box><StatCard title="Warehouse Transfers" value="0" icon={<Assignment />} color="#1565c0" /></Box>
@@ -125,7 +125,7 @@ export const StoreDashboard = ({ stats }) => {
 export const MaintenanceDashboard = ({ stats }) => {
     if (!stats) return null;
     return (
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: 'repeat(4, 1fr)' }, gap: 3 }}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 3 }}>
             <Box><StatCard title="Pending Repairs" value="0" icon={<Build />} color="#d32f2f" /></Box>
             <Box><StatCard title="Calibration Due" value="0" icon={<VerifiedUser />} color="#e65100" /></Box>
             <Box><StatCard title="Scheduled Today" value="0" icon={<Assignment />} color="#1565c0" /></Box>
@@ -137,7 +137,7 @@ export const MaintenanceDashboard = ({ stats }) => {
 export const AssetDashboard = ({ stats, formatCurrency }) => {
     if (!stats) return null;
     return (
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: 'repeat(4, 1fr)' }, gap: 3 }}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 3 }}>
             <Box><StatCard title="Total Assets" value="0" icon={<Business />} color="#37474f" /></Box>
             <Box><StatCard title="Allocated" value="0" icon={<Assignment />} color="#1565c0" /></Box>
             <Box><StatCard title="Depreciation (YTD)" value={formatCurrency ? formatCurrency(0) : "₹0"} icon={<TrendingUp />} color="#e65100" /></Box>
@@ -149,7 +149,7 @@ export const AssetDashboard = ({ stats, formatCurrency }) => {
 export const ContractorDashboard = ({ stats, formatCurrency }) => {
     if (!stats) return null;
     return (
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr', md: 'repeat(3, 1fr)' }, gap: 3 }}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 3 }}>
             <Box><StatCard title="Total Staff" value="0" icon={<People />} color="#ad1457" /></Box>
             <Box><StatCard title="Pending Payments" value={formatCurrency ? formatCurrency(0) : "₹0"} icon={<RequestQuote />} color="#e65100" /></Box>
             <Box><StatCard title="Daily Attendance" value="0%" icon={<CheckCircle />} color="#2e7d32" /></Box>
