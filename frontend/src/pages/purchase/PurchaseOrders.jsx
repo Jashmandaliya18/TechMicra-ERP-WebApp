@@ -46,11 +46,24 @@ const PurchaseOrders = () => {
         }
     };
 
+    const handleDelete = async (row) => {
+        if (window.confirm('Are you sure you want to delete this purchase order?')) {
+            try {
+                await purchaseService.delete('purchase-orders', row.id);
+                fetchData();
+            } catch (err) {
+                console.error('Failed to delete', err);
+                const errMsg = err.response?.data?.message || 'Failed to delete purchase order';
+                setError(errMsg);
+            }
+        }
+    };
+
     if (loading) return <Box sx={{ display: 'flex', justifyContent: 'center', p: 5 }}><CircularProgress /></Box>;
 
     return (
         <Box>
-            {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
+            {error && <Alert severity="error" sx={{ mb: 2 }} onClose={() => setError(null)}>{error}</Alert>}
             <DataTable
                 title="Purchase Orders"
                 columns={columns}
@@ -58,7 +71,7 @@ const PurchaseOrders = () => {
                 onAdd={() => navigate('/purchase/orders/new')}
                 onView={(row) => navigate(`/purchase/orders/${row.id}`)}
                 onEdit={(row) => navigate(`/purchase/orders/edit/${row.id}`)}
-                onDelete={(row) => console.log('Delete', row)}
+                onDelete={handleDelete}
             />
         </Box>
     );

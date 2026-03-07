@@ -64,6 +64,7 @@ class PurchaseOrderController extends Controller
     public function update(Request $request, PurchaseOrder $purchaseOrder)
     {
         $validated = $request->validate([
+            'vendor_name' => 'sometimes|string',
             'vendor_id' => 'sometimes|exists:vendors,id',
             'po_date' => 'sometimes|date',
             'valid_until' => 'nullable|date',
@@ -71,7 +72,7 @@ class PurchaseOrderController extends Controller
             'items' => 'sometimes|array',
         ]);
 
-        $purchaseOrder->update($request->only(['vendor_id', 'po_date', 'valid_until', 'status']));
+        $purchaseOrder->update($request->only(['vendor_name', 'vendor_id', 'po_date', 'valid_until', 'status']));
 
         if (isset($validated['items'])) {
             $purchaseOrder->items()->delete();
@@ -91,7 +92,14 @@ class PurchaseOrderController extends Controller
 
     public function destroy(PurchaseOrder $purchaseOrder)
     {
-        $purchaseOrder->delete();
-        return response()->json(null, 204);
+        try {
+            $purchaseOrder->delete();
+            return response()->json(null, 204);
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->getCode() === '23000') {
+                return response()->json(['message' => 'Cannot delete this Purchase Order. It is referenced by other records (e.g., Goods Receipt Notes).'], 400);
+            }
+            return response()->json(['message' => 'An error occurred while deleting.'], 500);
+        }
     }
 }

@@ -81,19 +81,19 @@ export default function Dashboard() {
             case "Maintenance Manager": return <MaintenanceDashboard stats={stats} formatCurrency={formatCurrency} />;
             case "Contractor Manager": return <ContractorDashboard stats={stats} formatCurrency={formatCurrency} />;
             case "Super Admin": return (
-                <Grid container spacing={3}>
+                <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: 'repeat(5, 1fr)' }, gap: 3 }}>
                     {/* Super Admin Widgets based on requirements */}
-                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Total Sales" value={formatCurrency(stats.totalSales)} icon={<TrendingUp />} color="#1565c0" /></Grid>
-                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Pending Orders" value={stats.pendingOrders} icon={<ShoppingCart />} color="#e65100" /></Grid>
-                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Low Stock Items" value={stats.lowStockItems} icon={<Warning />} color="#d32f2f" /></Grid>
-                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Pending POs" value={stats.pendingPOs} icon={<RequestQuote />} color="#7b1fa2" /></Grid>
-                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Running Batches" value={stats.runningBatches} icon={<Factory />} color="#e65100" /></Grid>
-                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Dispatch Pending" value={stats.dispatchPending} icon={<LocalShipping />} color="#00838f" /></Grid>
-                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Total Employees" value={stats.totalEmployees} icon={<People />} color="#ad1457" /></Grid>
-                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Pending Payments" value={formatCurrency(stats.pendingPayments)} icon={<AccountBalance />} color="#d32f2f" /></Grid>
-                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Cash Flow" value={formatCurrency(stats.cashFlow)} icon={<TrendingUp />} color="#2e7d32" /></Grid>
-                    <Grid item xs={12} sm={6} md={2.4}><StatCard title="Notifications" value={stats.notifications} icon={<Assignment />} color="#1565c0" /></Grid>
-                </Grid>
+                    <Box><StatCard title="Total Sales" value={formatCurrency(stats.totalSales)} icon={<TrendingUp />} color="#1565c0" /></Box>
+                    <Box><StatCard title="Pending Orders" value={stats.pendingOrders} icon={<ShoppingCart />} color="#e65100" /></Box>
+                    <Box><StatCard title="Low Stock Items" value={stats.lowStockItems} icon={<Warning />} color="#d32f2f" /></Box>
+                    <Box><StatCard title="Pending POs" value={stats.pendingPOs} icon={<RequestQuote />} color="#7b1fa2" /></Box>
+                    <Box><StatCard title="Running Batches" value={stats.runningBatches} icon={<Factory />} color="#e65100" /></Box>
+                    <Box><StatCard title="Dispatch Pending" value={stats.dispatchPending} icon={<LocalShipping />} color="#00838f" /></Box>
+                    <Box><StatCard title="Total Employees" value={stats.totalEmployees} icon={<People />} color="#ad1457" /></Box>
+                    <Box><StatCard title="Pending Payments" value={formatCurrency(stats.pendingPayments)} icon={<AccountBalance />} color="#d32f2f" /></Box>
+                    <Box><StatCard title="Cash Flow" value={formatCurrency(stats.cashFlow)} icon={<TrendingUp />} color="#2e7d32" /></Box>
+                    <Box><StatCard title="Notifications" value={stats.notifications} icon={<Assignment />} color="#1565c0" /></Box>
+                </Box>
             );
             default: return null;
         }
