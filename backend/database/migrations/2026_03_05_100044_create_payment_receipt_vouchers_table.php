@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('payment_receipt_vouchers', function (Blueprint $table) {
             $table->id();
-            $table->string('voucher_no')->unique();
-            $table->date('voucher_date');
-            $table->enum('type', ['Payment', 'Receipt']);
-            $table->foreignId('ledger_account_id')->constrained('ledger_accounts'); // The party or expense
-            $table->decimal('amount', 15, 2);
-            $table->string('payment_mode'); // Cash, Bank Transfer, Cheque
-            $table->string('reference_no')->nullable(); // Cheque No, UTR
+            $table->string('receipt_no')->nullable();
+            $table->string('voucher_type')->default('payment'); // payment / receipt
+            $table->date('date')->nullable();
+            $table->string('party_name')->nullable();
+            $table->decimal('amount', 15, 2)->default(0);
+            $table->string('mode')->nullable(); // cash / bank / cheque / online
+            $table->string('reference_no')->nullable();
             $table->text('remarks')->nullable();
             $table->timestamps();
         });
