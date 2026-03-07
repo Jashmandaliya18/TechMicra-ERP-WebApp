@@ -55,7 +55,13 @@ class EmployeeController extends Controller
 
     public function destroy(Employee $employee)
     {
-        $employee->delete();
+        \Illuminate\Support\Facades\DB::transaction(function () use ($employee) {
+            $employee->salaryStructure()->delete();
+            $employee->payrollRecords()->delete();
+            $employee->advanceRecords()->delete();
+            $employee->delete();
+        });
+
         return response()->json(null, 204);
     }
 }

@@ -37,7 +37,7 @@ class DashboardController extends Controller
             'dispatchPending' => $dispatchPending,
             'totalEmployees' => $totalEmployees,
             'pendingPayments' => $pendingPayments,
-            'cashFlow' => 0,
+            'cashFlow' => Schema::hasTable('bank_reconciliations') ? DB::table('bank_reconciliations')->sum('reconciled_amount') : 0,
             'notifications' => 0,
             
             // Sales Role
